@@ -1,0 +1,58 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31005.135
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ProductService", "ProductService", "{5A53E358-184F-4E50-8856-CB43B99CC914}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Zebra.ProductService.Domain", "Zebra.ProductService.Domain\Zebra.ProductService.Domain.csproj", "{C2F58157-5476-419B-A4FB-8E7CE633660E}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Zebra.ProductService.Persistance", "Zebra.ProductService.Persistance\Zebra.ProductService.Persistance.csproj", "{A57B64FB-0793-4E18-B353-39302409223B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Zebra.ProductService.Application", "Zebra.ProductService.Application\Zebra.ProductService.Application.csproj", "{31248AB6-C5F7-4CBD-B536-ABDB69D0A194}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Zebra.ProductService.API", "Zebra.ProductService.API\Zebra.ProductService.API.csproj", "{ECD11793-4446-4C5E-8D35-E0DA2AA81152}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zebra.ProductService.Application.Tests", "Zebra.ProductService.Application.Tests\Zebra.ProductService.Application.Tests.csproj", "{59E0EE74-A696-49FB-A309-5175FF430BF1}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C2F58157-5476-419B-A4FB-8E7CE633660E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C2F58157-5476-419B-A4FB-8E7CE633660E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C2F58157-5476-419B-A4FB-8E7CE633660E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C2F58157-5476-419B-A4FB-8E7CE633660E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A57B64FB-0793-4E18-B353-39302409223B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A57B64FB-0793-4E18-B353-39302409223B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A57B64FB-0793-4E18-B353-39302409223B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A57B64FB-0793-4E18-B353-39302409223B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{31248AB6-C5F7-4CBD-B536-ABDB69D0A194}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{31248AB6-C5F7-4CBD-B536-ABDB69D0A194}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{31248AB6-C5F7-4CBD-B536-ABDB69D0A194}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{31248AB6-C5F7-4CBD-B536-ABDB69D0A194}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ECD11793-4446-4C5E-8D35-E0DA2AA81152}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ECD11793-4446-4C5E-8D35-E0DA2AA81152}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ECD11793-4446-4C5E-8D35-E0DA2AA81152}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ECD11793-4446-4C5E-8D35-E0DA2AA81152}.Release|Any CPU.Build.0 = Release|Any CPU
+		{59E0EE74-A696-49FB-A309-5175FF430BF1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{59E0EE74-A696-49FB-A309-5175FF430BF1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{59E0EE74-A696-49FB-A309-5175FF430BF1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{59E0EE74-A696-49FB-A309-5175FF430BF1}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{C2F58157-5476-419B-A4FB-8E7CE633660E} = {5A53E358-184F-4E50-8856-CB43B99CC914}
+		{A57B64FB-0793-4E18-B353-39302409223B} = {5A53E358-184F-4E50-8856-CB43B99CC914}
+		{31248AB6-C5F7-4CBD-B536-ABDB69D0A194} = {5A53E358-184F-4E50-8856-CB43B99CC914}
+		{ECD11793-4446-4C5E-8D35-E0DA2AA81152} = {5A53E358-184F-4E50-8856-CB43B99CC914}
+		{59E0EE74-A696-49FB-A309-5175FF430BF1} = {5A53E358-184F-4E50-8856-CB43B99CC914}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {68C19DED-5A65-4AC2-80C1-CC12385FDD6D}
+	EndGlobalSection
+EndGlobal
