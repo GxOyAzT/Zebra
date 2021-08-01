@@ -31,18 +31,27 @@ namespace Zebra.ProductService.Application.Tests.Mock.Repository.Price
                     Tax = 11,
                     Cost = 11,
                     From = DateTime.Now.AddDays(5)
+                },
+                new PriceModel()
+                {
+                    Id = Guid.Parse("00000000-0000-0000-0000-000000000003"),
+                    ProductModelId = Guid.Parse("00000000-0000-0000-0002-000000000000"),
+                    Tax = 11,
+                    Cost = 11,
+                    From = DateTime.Now
                 }
             };
         }
 
         public Task Delete(PriceModel entity)
         {
-            throw new NotImplementedException();
+            PriceModels.Remove(entity);
+            return Task.CompletedTask;
         }
 
         public Task<PriceModel> Get(Guid id)
         {
-            throw new NotImplementedException();
+            return Task.FromResult(PriceModels.FirstOrDefault(e => e.Id == id));
         }
 
         public Task<List<PriceModel>> GetAll()
