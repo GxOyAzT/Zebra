@@ -1,16 +1,13 @@
 ﻿using MediatR;
 using Moq;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Xunit;
 using Zebra.ProductService.Application.Features.Product.Commands.RequestEntry;
 using Zebra.ProductService.Application.Features.Product.Commands.Validation;
 using Zebra.ProductService.Application.Features.Product.Queries;
-using Zebra.ProductService.Application.Tests.Mock.Repository;
+using Zebra.ProductService.Application.Tests.Mock.Repository.Product;
 using Zebra.ProductService.Domain.Entities;
 using Zebra.ProductService.Domain.Exceptions;
 

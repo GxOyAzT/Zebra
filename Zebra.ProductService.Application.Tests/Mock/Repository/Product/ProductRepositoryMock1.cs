@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Zebra.ProductService.Domain.Entities;
 using Zebra.ProductService.Persistance.Repository.Product;
 
-namespace Zebra.ProductService.Application.Tests.Mock.Repository
+namespace Zebra.ProductService.Application.Tests.Mock.Repository.Product
 {
     public class ProductRepositoryMock1 : IProductRepository
     {

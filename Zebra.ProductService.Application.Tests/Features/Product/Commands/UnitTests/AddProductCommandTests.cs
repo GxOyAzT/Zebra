@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Xunit;
 using Zebra.ProductService.Application.Features.Product.Commands.RequestEntry;
 using Zebra.ProductService.Application.Features.Product.Commands.Validation;
-using Zebra.ProductService.Application.Tests.Mock.Repository;
+using Zebra.ProductService.Application.Tests.Mock.Repository.Product;
 using Zebra.ProductService.Domain.Exceptions;
 
 namespace Zebra.ProductService.Application.Tests.Features.Product.Commands.UnitTests

@@ -24,8 +24,4 @@
     <ProjectReference Include="..\Zebra.ProductService.Application\Zebra.ProductService.Application.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Mock\Repository\" />
-  </ItemGroup>
-
 </Project>

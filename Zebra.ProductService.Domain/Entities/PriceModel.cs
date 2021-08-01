@@ -7,6 +7,7 @@ namespace Zebra.ProductService.Domain.Entities
     {
         public int Tax { get; set; }
         public decimal Cost { get; set; }
+        public DateTime From { get; set; }
 
         public Guid ProductModelId { get; set; }
     }
