@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -22,9 +23,14 @@ namespace Zebra.ProductService.Application.Features.Product.Commands.Validation
         {
             var existingProducts = await _mediator.Send(new GetAllProductsQuery());
 
+            if (String.IsNullOrEmpty(request.Name))
+            {
+                throw new IncorrectInputFormatException("Product name cannot be empty value.");
+            }
+
             if (existingProducts.Select(e => e.Name.ToLower()).Contains(request.Name.ToLower()))
             {
-                throw new IncorrectInputFormatException("Request already exists.");
+                throw new IncorrectInputFormatException("product of this name already exists.");
             }
 
             if (request.Description.Length > 100)

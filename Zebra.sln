@@ -13,7 +13,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Zebra.ProductService.Applic
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Zebra.ProductService.API", "Zebra.ProductService.API\Zebra.ProductService.API.csproj", "{ECD11793-4446-4C5E-8D35-E0DA2AA81152}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zebra.ProductService.Application.Tests", "Zebra.ProductService.Application.Tests\Zebra.ProductService.Application.Tests.csproj", "{59E0EE74-A696-49FB-A309-5175FF430BF1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Zebra.ProductService.Application.Tests", "Zebra.ProductService.Application.Tests\Zebra.ProductService.Application.Tests.csproj", "{59E0EE74-A696-49FB-A309-5175FF430BF1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zebra.ProductService.API.Tests", "Zebra.ProductService.API.Tests\Zebra.ProductService.API.Tests.csproj", "{A6F78ECB-696E-476F-A501-8E2B0FDF9102}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,6 +43,10 @@ Global
 		{59E0EE74-A696-49FB-A309-5175FF430BF1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{59E0EE74-A696-49FB-A309-5175FF430BF1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{59E0EE74-A696-49FB-A309-5175FF430BF1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A6F78ECB-696E-476F-A501-8E2B0FDF9102}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A6F78ECB-696E-476F-A501-8E2B0FDF9102}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A6F78ECB-696E-476F-A501-8E2B0FDF9102}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A6F78ECB-696E-476F-A501-8E2B0FDF9102}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -51,6 +57,7 @@ Global
 		{31248AB6-C5F7-4CBD-B536-ABDB69D0A194} = {5A53E358-184F-4E50-8856-CB43B99CC914}
 		{ECD11793-4446-4C5E-8D35-E0DA2AA81152} = {5A53E358-184F-4E50-8856-CB43B99CC914}
 		{59E0EE74-A696-49FB-A309-5175FF430BF1} = {5A53E358-184F-4E50-8856-CB43B99CC914}
+		{A6F78ECB-696E-476F-A501-8E2B0FDF9102} = {5A53E358-184F-4E50-8856-CB43B99CC914}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {68C19DED-5A65-4AC2-80C1-CC12385FDD6D}

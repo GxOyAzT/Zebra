@@ -1,15 +1,16 @@
+using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
+using Zebra.ProductService.Application;
+using Zebra.ProductService.Domain.Entities;
+using Zebra.ProductService.Persistance.Repository.Price;
+using Zebra.ProductService.Persistance.Repository.Product;
 
 namespace Zebra.ProductService.API
 {
@@ -24,6 +25,11 @@ namespace Zebra.ProductService.API
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddMediatR(typeof(MediaREntryPoint));
+
+            services.AddScoped<IProductRepository, MockProductRepo>();
+            services.AddScoped<IPriceRepository, MockPriceRepo>();
+
             services.AddControllers();
         }
 
@@ -44,6 +50,79 @@ namespace Zebra.ProductService.API
             {
                 endpoints.MapControllers();
             });
+        }
+    }
+
+    public class MockProductRepo : IProductRepository
+    {
+        public Task Delete(ProductModel entity)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<ProductModel> Get(Guid id)
+        {
+            return Task.FromResult(new ProductModel()
+            {
+                Id = new Guid(),
+                IsInSale = true,
+                Name = "Name",
+                AddDate = DateTime.Now.AddDays(-200),
+                Description = "Description"
+            });
+        }
+
+        public Task<List<ProductModel>> GetAll()
+        {
+            return Task.FromResult(new List<ProductModel>()
+            {
+                new ProductModel()
+                {
+                    Id = new Guid("4be0c6d2-bd29-4fa7-8002-a5f10a7c9686"),
+                    IsInSale = true,
+                    Name = "Name",
+                    AddDate = DateTime.Now.AddDays(-200),
+                    Description = "Description"
+                }   
+            });
+        }
+
+        public Task Insert(ProductModel entity)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task Update(ProductModel entity)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+    public class MockPriceRepo : IPriceRepository
+    {
+        public Task Delete(PriceModel entity)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<PriceModel> Get(Guid id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<List<PriceModel>> GetAll()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task Insert(PriceModel entity)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task Update(PriceModel entity)
+        {
+            throw new NotImplementedException();
         }
     }
 }

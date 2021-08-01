@@ -106,7 +106,7 @@ namespace Zebra.ProductService.Application.Tests.Features.Price.Commands.UnitTes
 
             await new AddPriceCommandHandler(mockMediator.Object, priceRepo).Handle(request, new CancellationToken());
 
-            Assert.Equal(3, (await priceRepo.GetAll()).Count);
+            Assert.Equal(4, (await priceRepo.GetAll()).Count);
         }
     }
 }
