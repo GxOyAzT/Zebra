@@ -4,6 +4,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Zebra.Logger.API.HostedServices;
+using Zebra.Logger.API.Persistance;
+using Zebra.Logger.API.Persistance.Interfaces;
 using Zebra.Logger.API.RabbitMqConfiguration;
 using Zebra.Logger.API.RabbitMqConfiguration.Interfaces;
 
@@ -21,6 +23,7 @@ namespace Zebra.Logger.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddSingleton<ICreateModel, CreateModel>();
+            services.AddSingleton<ILogsRepository, LogsRepository>();
             services.AddHostedService<LogsReceiver>();
             services.AddControllers();
         }
