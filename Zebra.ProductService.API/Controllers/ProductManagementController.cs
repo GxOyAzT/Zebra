@@ -5,6 +5,8 @@ using Zebra.ProductService.Application.Features.Product.Commands.RequestEntry;
 using Zebra.ProductService.Application.Features.Product.Queries;
 using Zebra.ProductService.Domain.Entities;
 using Zebra.ProductService.Domain.Exceptions;
+using Zebra.Shared.LoggerDriver.Domain.Enums;
+using Zebra.Shared.LoggerDriver.Services.Interfaces;
 
 namespace Zebra.ProductService.API.Controllers
 {
@@ -13,11 +15,14 @@ namespace Zebra.ProductService.API.Controllers
     public class ProductManagementController : ControllerBase
     {
         private readonly IMediator _mediator;
+        private readonly IMessageLogger _messageLogger;
 
         public ProductManagementController(
-            IMediator mediator)
+            IMediator mediator,
+            IMessageLogger messageLogger)
         {
             _mediator = mediator;
+            _messageLogger = messageLogger;
         }
 
         [HttpGet]
@@ -37,6 +42,7 @@ namespace Zebra.ProductService.API.Controllers
         {
             if (request == null)
             {
+                _messageLogger.Log("GetProductQuery is null (ProductManagementController.GetProduct)", LogTypeEnum.Information);
                 return BadRequest("Request object cannot be empty.");
             }
 
@@ -47,6 +53,7 @@ namespace Zebra.ProductService.API.Controllers
             }
             catch (CannotFindEntityException ex)
             {
+                _messageLogger.Log($"{ex.Message} (ProductManagementController.GetProduct)", LogTypeEnum.Information);
                 return NotFound(ex.Message);
             }
 
@@ -59,6 +66,7 @@ namespace Zebra.ProductService.API.Controllers
         {
             if (request == null)
             {
+                _messageLogger.Log("UpdateProductCommand is null (ProductManagementController.UpdateProduct)", LogTypeEnum.Information);
                 return BadRequest("Request object cannot be empty.");
             }
 
@@ -68,10 +76,12 @@ namespace Zebra.ProductService.API.Controllers
             }
             catch (CannotFindEntityException ex)
             {
+                _messageLogger.Log($"{ex.Message} (ProductManagementController.UpdateProduct)", LogTypeEnum.Information);
                 return BadRequest(ex.Message);
             }
             catch (IncorrectInputFormatException ex)
             {
+                _messageLogger.Log($"{ex.Message} (ProductManagementController.UpdateProduct)", LogTypeEnum.Information);
                 return BadRequest(ex.Message);
             }
 

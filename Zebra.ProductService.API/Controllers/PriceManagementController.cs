@@ -5,6 +5,8 @@ using Zebra.ProductService.Application.Features.Price.Commands;
 using Zebra.ProductService.Application.Features.Price.Queries;
 using Zebra.ProductService.Domain.Entities;
 using Zebra.ProductService.Domain.Exceptions;
+using Zebra.Shared.LoggerDriver.Domain.Enums;
+using Zebra.Shared.LoggerDriver.Services.Interfaces;
 
 namespace Zebra.ProductService.API.Controllers
 {
@@ -13,10 +15,14 @@ namespace Zebra.ProductService.API.Controllers
     public class PriceManagementController : ControllerBase
     {
         private readonly IMediator _mediator;
+        private readonly IMessageLogger _messageLogger;
 
-        public PriceManagementController(IMediator mediator)
+        public PriceManagementController(
+            IMediator mediator,
+            IMessageLogger messageLogger)
         {
             _mediator = mediator;
+            _messageLogger = messageLogger;
         }
 
         [HttpGet]
@@ -25,6 +31,7 @@ namespace Zebra.ProductService.API.Controllers
         {
             if (request == null)
             {
+                _messageLogger.Log($"GetActualPriceQuery is null (PriceManagementController.GetActualProductPrice)", LogTypeEnum.Information);
                 return BadRequest("Request object cannot be empty.");
             }
 
@@ -35,10 +42,12 @@ namespace Zebra.ProductService.API.Controllers
             }
             catch (CannotFindEntityException ex)
             {
+                _messageLogger.Log($"{ex.Message} (PriceManagementController.GetActualProductPrice)", LogTypeEnum.Information);
                 return BadRequest(ex.Message);
             }
             catch (CollectionIsEmptyException ex)
             {
+                _messageLogger.Log($"{ex.Message} (PriceManagementController.GetActualProductPrice)", LogTypeEnum.Information);
                 return BadRequest(ex.Message);
             }
 
@@ -51,6 +60,7 @@ namespace Zebra.ProductService.API.Controllers
         {
             if (request == null)
             {
+                _messageLogger.Log($"AddPriceCommand is null (PriceManagementController.UpdateProductPrice)", LogTypeEnum.Information);
                 return BadRequest("Request object cannot be empty.");
             }
 
@@ -60,10 +70,12 @@ namespace Zebra.ProductService.API.Controllers
             }
             catch (CannotFindEntityException ex)
             {
+                _messageLogger.Log($"{ex.Message} (PriceManagementController.UpdateProductPrice)", LogTypeEnum.Information);
                 return BadRequest(ex.Message);
             }
             catch (CollectionIsEmptyException ex)
             {
+                _messageLogger.Log($"{ex.Message} (PriceManagementController.UpdateProductPrice)", LogTypeEnum.Information);
                 return BadRequest(ex.Message);
             }
 
@@ -76,6 +88,7 @@ namespace Zebra.ProductService.API.Controllers
         {
             if (request == null)
             {
+                _messageLogger.Log($"DeletePriceCommand is null (PriceManagementController.DeletePrice)", LogTypeEnum.Information);
                 return BadRequest("Request object cannot be empty.");
             }
 
@@ -85,14 +98,17 @@ namespace Zebra.ProductService.API.Controllers
             }
             catch (CannotFindEntityException ex)
             {
+                _messageLogger.Log($"{ex.Message} (PriceManagementController.DeletePrice)", LogTypeEnum.Information);
                 return BadRequest(ex.Message);
             }
             catch (CollectionIsEmptyException ex)
             {
+                _messageLogger.Log($"{ex.Message} (PriceManagementController.DeletePrice)", LogTypeEnum.Information);
                 return BadRequest(ex.Message);
             }
             catch (DomainRulesException ex)
             {
+                _messageLogger.Log($"{ex.Message} (PriceManagementController.DeletePrice)", LogTypeEnum.Information);
                 return BadRequest(ex.Message);
             }
 

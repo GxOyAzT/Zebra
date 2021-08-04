@@ -11,6 +11,7 @@ using Zebra.ProductService.Application;
 using Zebra.ProductService.Domain.Entities;
 using Zebra.ProductService.Persistance.Repository.Price;
 using Zebra.ProductService.Persistance.Repository.Product;
+using Zebra.Shared.LoggerDriver.DIConfiguration;
 
 namespace Zebra.ProductService.API
 {
@@ -26,6 +27,8 @@ namespace Zebra.ProductService.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMediatR(typeof(MediaREntryPoint));
+
+            services.ConfigureLoggerDriver("ProductService");
 
             services.AddScoped<IProductRepository, MockProductRepo>();
             services.AddScoped<IPriceRepository, MockPriceRepo>();
