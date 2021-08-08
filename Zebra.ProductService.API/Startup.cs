@@ -11,6 +11,7 @@ using Zebra.ProductService.Application;
 using Zebra.ProductService.Domain.Entities;
 using Zebra.ProductService.Persistance.Repository.Price;
 using Zebra.ProductService.Persistance.Repository.Product;
+using Zebra.ProductService.Persistance.Repository.Rating;
 using Zebra.Shared.LoggerDriver.DIConfiguration;
 
 namespace Zebra.ProductService.API
@@ -32,6 +33,7 @@ namespace Zebra.ProductService.API
 
             services.AddScoped<IProductRepository, MockProductRepo>();
             services.AddScoped<IPriceRepository, MockPriceRepo>();
+            services.AddScoped<IRatingRepository, MockRatingRepo>();
 
             services.AddControllers();
         }
@@ -124,6 +126,34 @@ namespace Zebra.ProductService.API
         }
 
         public Task Update(PriceModel entity)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+    public class MockRatingRepo : IRatingRepository
+    {
+        public Task Delete(RatingModel entity)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<RatingModel> Get(Guid id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<List<RatingModel>> GetAll()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task Insert(RatingModel entity)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task Update(RatingModel entity)
         {
             throw new NotImplementedException();
         }

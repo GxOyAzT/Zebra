@@ -11,6 +11,7 @@ namespace Zebra.ProductService.Domain.Entities
         public bool IsInSale { get; set; }
         public DateTime AddDate { get; set; }
 
-        public ICollection<PriceModel> PriceModels { get; set; }
+        public ICollection<PriceModel> Prices { get; set; }
+        public ICollection<RatingModel> Ratings { get; set; }
     }
 }

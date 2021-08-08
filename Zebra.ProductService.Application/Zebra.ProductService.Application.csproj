@@ -12,8 +12,4 @@
     <ProjectReference Include="..\Zebra.ProductService.Persistance\Zebra.ProductService.Persistance.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="ApiModels\PriceApiModels\" />
-  </ItemGroup>
-
 </Project>
