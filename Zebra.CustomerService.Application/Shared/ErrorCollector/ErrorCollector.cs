@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace Zebra.CustomerService.Application.Shared.ErrorCollector
 {
-    public class ErrorCollector : IErrorCollector
+    public abstract class ErrorCollector
     {
         public ErrorCollector()
         {
@@ -16,6 +16,6 @@ namespace Zebra.CustomerService.Application.Shared.ErrorCollector
 
         public bool HasErrorOccured() => errors.Any();
 
-        public void AddError(string message) => errors.Add(message);
+        protected void AddError(string message) => errors.Add(message);
     }
 }

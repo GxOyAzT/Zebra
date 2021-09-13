@@ -5,10 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Shared\Interfaces\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\Zebra.CustomerService.Persistance\Zebra.CustomerService.Persistance.csproj" />
   </ItemGroup>
 

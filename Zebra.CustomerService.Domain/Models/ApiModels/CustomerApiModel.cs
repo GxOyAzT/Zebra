@@ -1,16 +1,16 @@
 ﻿using System;
 using Zebra.CustomerService.Domain.Enums;
-using Zebra.CustomerService.Domain.Shared;
-using Zebra.CustomerService.Domain.ValueObjects;
 
-namespace Zebra.CustomerService.Domain.Models
+namespace Zebra.CustomerService.Domain.Models.ApiModels
 {
-    public class CustomerModel : Entity
+    public class CustomerApiModel 
     {
+        public Guid Id { get; set; }
         public string FullName { get; set; }
         public DateTime Dob { get; set; }
         public int Points { get; set; }
-        public Address Address { get; set; }
+        public string City { get; set; }
+        public string Street { get; set; }
         public GenderEnum Gender { get; set; }
     }
 }

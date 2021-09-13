@@ -1,8 +1,8 @@
-﻿using Zebra.CustomerService.Domain.Models;
+﻿using Zebra.CustomerService.Domain.Models.Tables;
 
 namespace Zebra.CustomerService.Application.Builders
 {
-    public class AddressBuilder : CustomerBuilder
+    public class AddressBuilder : CustomerNewBuilder
     {
         public AddressBuilder(CustomerModel customerModel)
             :base(customerModel)

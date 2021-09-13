@@ -1,9 +1,10 @@
-﻿using Zebra.CustomerService.Domain.Models;
+﻿using Zebra.CustomerService.Application.Shared.ErrorCollector;
+using Zebra.CustomerService.Domain.Models.ApiModels;
 
 namespace Zebra.CustomerService.Application.Customer.Interfaces
 {
-    public interface IInsertNewCustomer
+    public interface IInsertNewCustomer : IErrorCollector
     {
-        void Execute(CustomerModel customerModel);
+        void Execute(CustomerApiModel customerModel);
     }
 }

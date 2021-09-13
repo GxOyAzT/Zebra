@@ -31,7 +31,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Zebra.CustomerService.Domai
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Zebra.CustomerService.Persistance", "Zebra.CustomerService.Persistance\Zebra.CustomerService.Persistance.csproj", "{CB86AFAE-54EA-41F0-B7B9-1E0666CACB40}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zebra.CustomerService.Application", "Zebra.CustomerService.Application\Zebra.CustomerService.Application.csproj", "{BD9DB02E-E69D-4F5A-90D3-94EACA8C4589}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Zebra.CustomerService.Application", "Zebra.CustomerService.Application\Zebra.CustomerService.Application.csproj", "{BD9DB02E-E69D-4F5A-90D3-94EACA8C4589}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zebra.CustomerService.Application.Tests", "Zebra.CustomerService.Application.Tests\Zebra.CustomerService.Application.Tests.csproj", "{2C0C5011-6DED-4EE6-99A2-FFE8FCAD8177}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -83,6 +85,10 @@ Global
 		{BD9DB02E-E69D-4F5A-90D3-94EACA8C4589}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BD9DB02E-E69D-4F5A-90D3-94EACA8C4589}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BD9DB02E-E69D-4F5A-90D3-94EACA8C4589}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2C0C5011-6DED-4EE6-99A2-FFE8FCAD8177}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2C0C5011-6DED-4EE6-99A2-FFE8FCAD8177}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2C0C5011-6DED-4EE6-99A2-FFE8FCAD8177}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2C0C5011-6DED-4EE6-99A2-FFE8FCAD8177}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -99,6 +105,7 @@ Global
 		{04EE6810-55A3-483B-9DF0-D7546830EA7A} = {DCC6F1B5-D16E-4B50-84F3-FF8D44DBAD80}
 		{CB86AFAE-54EA-41F0-B7B9-1E0666CACB40} = {DCC6F1B5-D16E-4B50-84F3-FF8D44DBAD80}
 		{BD9DB02E-E69D-4F5A-90D3-94EACA8C4589} = {DCC6F1B5-D16E-4B50-84F3-FF8D44DBAD80}
+		{2C0C5011-6DED-4EE6-99A2-FFE8FCAD8177} = {DCC6F1B5-D16E-4B50-84F3-FF8D44DBAD80}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {68C19DED-5A65-4AC2-80C1-CC12385FDD6D}
