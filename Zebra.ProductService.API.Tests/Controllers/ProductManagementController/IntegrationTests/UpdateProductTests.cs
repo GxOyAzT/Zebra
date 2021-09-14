@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 using System.Text;
 using Newtonsoft.Json;
 using System.Net;
+using Zebra.Shared.LoggerDriver.DIConfiguration;
 
 namespace Zebra.ProductService.API.Tests.Controllers.ProductManagementController.IntegrationTests
 {
@@ -30,6 +31,8 @@ namespace Zebra.ProductService.API.Tests.Controllers.ProductManagementController
                     services.AddMediatR(typeof(MediaREntryPoint));
 
                     services.AddScoped<IProductRepository, ProductRepositoryMock1>();
+
+                    services.ConfigureLoggerDriver("ProductService", false);
                 });
             }).CreateClient(new WebApplicationFactoryClientOptions());
         }
