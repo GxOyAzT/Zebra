@@ -34,6 +34,9 @@ namespace Zebra.ProductService.API
                 conf.UseSqlServer(Configuration.GetConnectionString("Zebra_Product"));
             });
 
+            services.AddCors(policy =>
+                policy.AddPolicy("OpenCorsPolicy", options => options.AllowAnyMethod().AllowAnyHeader().AllowAnyOrigin()));
+
             services.AddMediatR(typeof(MediaREntryPoint));
 
             services.ConfigureLoggerDriver("ProductService");
@@ -53,6 +56,8 @@ namespace Zebra.ProductService.API
             }
 
             app.UseHttpsRedirection();
+
+            app.UseCors("OpenCorsPolicy");
 
             app.UseRouting();
 
