@@ -14,11 +14,11 @@ namespace Zebra.Shared.LoggerDriver.DIConfiguration
             services.AddScoped<IMessageLogger, MessageLogger>();
         }
 
-        public static void ConfigureLoggerDriver(this IServiceCollection services, string senderName)
+        public static void ConfigureLoggerDriver(this IServiceCollection services, string senderName, bool isProduction = true)
         {
             services.AddScoped<ICreateModel, CreateModel>();
             services.AddScoped<IMessageLogger, MessageLogger>();
-            services.AddSingleton(new Settings(senderName));
+            services.AddSingleton(new Settings(senderName, isProduction));
         }
     }
 }
