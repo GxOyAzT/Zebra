@@ -12,23 +12,28 @@ namespace Zebra.Shared.LoggerDriver.Services
     public class MessageLogger : IMessageLogger
     {
         private readonly ICreateModel _createModel;
-        private readonly SenderName _senderName;
+        private readonly Settings _settings;
 
         public MessageLogger(
             ICreateModel createModel,
-            SenderName senderName)
+            Settings settings)
         {
             _createModel = createModel;
-            _senderName = senderName;
+            _settings = settings;
         }
 
         public void Log(string message, LogTypeEnum logType)
         {
+            if (!_settings._IsProduction)
+            {
+                return;
+            }
+
             var logMessage = new LogModel()
             {
                 Message = message,
                 LogType = logType,
-                Sender = _senderName._SenderName
+                Sender = _settings._SenderName
             };
 
             var model = _createModel.Create();

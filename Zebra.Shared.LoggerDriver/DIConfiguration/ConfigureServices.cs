@@ -18,7 +18,7 @@ namespace Zebra.Shared.LoggerDriver.DIConfiguration
         {
             services.AddScoped<ICreateModel, CreateModel>();
             services.AddScoped<IMessageLogger, MessageLogger>();
-            services.AddSingleton(new SenderName(senderName));
+            services.AddSingleton(new Settings(senderName));
         }
     }
 }
