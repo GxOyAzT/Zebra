@@ -9,27 +9,27 @@ namespace Zebra.Gateway.API.Controllers.ProductService
 {
     [ApiController]
     [Route("[controller]")]
-    public class ProductClientController : ControllerBase
+    public class ProductManagementController : ControllerBase
     {
-        private readonly IProductClientFetch _productClientFetch;
+        private readonly IProductManagementFetch _productManagementFetch;
         private readonly IMessageLogger _messageLogger;
 
-        public ProductClientController(
-            IProductClientFetch productClientFetch,
+        public ProductManagementController(
+            IProductManagementFetch productManagementFetch,
             IMessageLogger messageLogger)
         {
-            _productClientFetch = productClientFetch;
+            _productManagementFetch = productManagementFetch;
             _messageLogger = messageLogger;
         }
 
-        [AllowAnonymous]
         [HttpGet]
-        [Route("getallavaliableproducts")]
-        public async Task<IActionResult> GetAllAvaliableProducts()
+        [Route("getproducts")]
+        [Authorize(Policy = "_productPriceManagement")]
+        public async Task<IActionResult> GetProducts()
         {
             try
             {
-                var products = await _productClientFetch.GetAllAvaliableProducts();
+                var products = await _productManagementFetch.GetProducts();
                 return Ok(products);
             }
             catch (HttpRequestException ex)

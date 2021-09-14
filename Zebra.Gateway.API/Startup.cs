@@ -1,18 +1,14 @@
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using Refit;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Zebra.Gateway.API.ApiCalls.ProductService;
+using System.Text;
+using Zebra.Gateway.API.ApiCalls;
 using Zebra.Shared.LoggerDriver.DIConfiguration;
 
 namespace Zebra.Gateway.API
@@ -28,12 +24,36 @@ namespace Zebra.Gateway.API
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddRefitClient<IProductClientFetch>().ConfigureHttpClient(c =>
-                c.BaseAddress = new Uri(Configuration["Apis:ProductService"]));
+            services.ConfiguteRefit(Configuration);
 
             services.ConfigureLoggerDriver("Gateway");
 
             services.AddControllers();
+
+            services.AddAuthentication(opt =>
+            {
+                opt.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+                opt.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                opt.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+            .AddJwtBearer(cfg =>
+            {
+                cfg.TokenValidationParameters = new TokenValidationParameters()
+                {
+                    ValidIssuer = Configuration["Auth:Jwt:Issuer"],
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Auth:Jwt:Key"])),
+                    ClockSkew = TimeSpan.Zero,
+                    RequireExpirationTime = false,
+                    ValidateIssuer = true,
+                    ValidateIssuerSigningKey = true,
+                    ValidateAudience = false
+                };
+            });
+
+            services.AddAuthorization(opt =>
+            {
+                opt.AddPolicy("_productPriceManagement", policy => policy.RequireClaim("_productPriceManagement", "true"));
+            });
 
             services.AddSwaggerGen(c =>
             {
@@ -54,11 +74,12 @@ namespace Zebra.Gateway.API
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllers();
+                endpoints.MapControllers().RequireAuthorization();
             });
         }
     }
