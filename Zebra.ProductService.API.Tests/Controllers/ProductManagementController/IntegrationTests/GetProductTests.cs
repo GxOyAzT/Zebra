@@ -13,6 +13,7 @@ using Zebra.ProductService.Application;
 using Zebra.ProductService.Application.Features.Product.Queries;
 using Zebra.ProductService.Domain.Entities;
 using Zebra.ProductService.Persistance.Repository.Product;
+using Zebra.Shared.LoggerDriver.DIConfiguration;
 
 namespace Zebra.ProductService.API.Tests.Controllers.ProductManagementController.IntegrationTests
 {
@@ -31,6 +32,8 @@ namespace Zebra.ProductService.API.Tests.Controllers.ProductManagementController
                     services.AddMediatR(typeof(MediaREntryPoint));
 
                     services.AddScoped<IProductRepository, ProductRepositoryMock1>();
+
+                    services.ConfigureLoggerDriver("ProductService", false);
                 });
             }).CreateClient(new WebApplicationFactoryClientOptions());
         }
