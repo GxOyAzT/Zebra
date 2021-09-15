@@ -65,13 +65,34 @@ namespace Zebra.Gateway.API.Controllers.ProductService
             }
         }
 
-        [HttpPost]
+        [HttpPut]
         [Route("updateproduct")]
         public async Task<IActionResult> UpdateProduct([FromBody] UpdateProductCommand command, [FromHeader(Name = "Accept-Language")] string lang)
         {
             try
             {
                 await _productManagementFetch.UpdateProduct(command, lang);
+                return Ok();
+            }
+            catch (ApiException ex)
+            {
+                _messageLogger.Log(ex.Content, Shared.LoggerDriver.Domain.Enums.LogTypeEnum.Information);
+                return StatusCode((int)ex.StatusCode, ex.Content);
+            }
+            catch (HttpRequestException ex)
+            {
+                _messageLogger.Log("Cannot fetch IProductClientFetch", Shared.LoggerDriver.Domain.Enums.LogTypeEnum.Information);
+                return StatusCode(417);
+            }
+        }
+
+        [HttpPost]
+        [Route("addproduct")]
+        public async Task<IActionResult> AddProduct([FromBody] AddProductCommand command, [FromHeader(Name = "Accept-Language")] string lang)
+        {
+            try
+            {
+                await _productManagementFetch.AddProduct(command, lang);
                 return Ok();
             }
             catch (ApiException ex)

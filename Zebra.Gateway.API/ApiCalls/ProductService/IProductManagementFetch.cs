@@ -15,7 +15,10 @@ namespace Zebra.Gateway.API.ApiCalls.ProductService
         [Get("/api/productmanagement/getproduct")]
         Task<ProductModel> GetProduct([Body] GetProductQuery query, [Header("Accept-Language")] string lang);
 
-        [Post("/api/productmanagement/updateproduct")]
+        [Put("/api/productmanagement/updateproduct")]
         Task UpdateProduct([Body] UpdateProductCommand command, [Header("Accept-Language")] string lang);
+
+        [Post("/api/productmanagement/addproduct")]
+        Task AddProduct([Body] AddProductCommand command, [Header("Accept-Language")] string lang);
     }
 }
