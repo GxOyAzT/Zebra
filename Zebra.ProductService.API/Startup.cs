@@ -6,6 +6,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using System.Diagnostics;
 using Zebra.ProductService.Application;
 using Zebra.ProductService.Persistance.Context;
 using Zebra.ProductService.Persistance.Repository.Price;
@@ -36,8 +37,15 @@ namespace Zebra.ProductService.API
 
             services.AddMediatR(typeof(MediaREntryPoint));
 
-            services.ConfigureLoggerDriver("ProductService");
-
+            if (Debugger.IsAttached)
+            {
+                services.ConfigureLoggerDriver("ProductService", false);
+            }
+            else
+            {
+                services.ConfigureLoggerDriver("ProductService");
+            }
+            
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<IPriceRepository, PriceRepository>();
             services.AddScoped<IRatingRepository, RatingRepository>();
