@@ -1,9 +1,11 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Localization;
 using System;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Zebra.AuthService.API.Models;
+using Zebra.AuthService.API.Resources;
 using Zebra.AuthService.API.Services.Token;
 
 namespace Zebra.AuthService.API.Controllers
@@ -15,15 +17,18 @@ namespace Zebra.AuthService.API.Controllers
         private readonly UserManager<IdentityUser> _userManager;
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly ICreateToken _createToken;
+        private readonly IStringLocalizer<ClientLocalizer> _localizer;
 
         public ClientController(
             UserManager<IdentityUser> userManager, 
             SignInManager<IdentityUser> signInManager,
-            ICreateToken createToken)
+            ICreateToken createToken,
+            IStringLocalizer<ClientLocalizer> localizer)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _createToken = createToken;
+            _localizer = localizer;
         }
 
         [HttpPost]
@@ -32,17 +37,17 @@ namespace Zebra.AuthService.API.Controllers
         {
             if (user is null)
             {
-                return BadRequest();
+                return BadRequest(_localizer["IncorrectPasswordOrEmailFormat"].Value);
             }
 
             if (String.IsNullOrEmpty(user.Email) || String.IsNullOrEmpty(user.Password))
             {
-                return BadRequest();
+                return BadRequest(_localizer["IncorrectPasswordOrEmailFormat"].Value);
             }
 
             if (await _userManager.FindByEmailAsync(user.Email) is not null)
             {
-                return BadRequest();
+                return BadRequest(_localizer["EmailAlreadyExists"].Value);
             }
 
             var identityUser = new IdentityUser()
@@ -55,7 +60,7 @@ namespace Zebra.AuthService.API.Controllers
                
             if (!registerResult.Succeeded)
             {
-                return BadRequest();
+                return BadRequest(_localizer["UnableToRegister"].Value);
             }
 
             var claim = new Claim("_userType", "_customerClient");
@@ -75,14 +80,14 @@ namespace Zebra.AuthService.API.Controllers
 
             if (identityUser is null)
             {
-                return BadRequest();
+                return BadRequest(_localizer["IncorrectPasswordOrEmail"].Value);
             }
 
             var loginResult = await _signInManager.CheckPasswordSignInAsync(identityUser, user.Password, false);
 
             if (!loginResult.Succeeded)
             {
-                return BadRequest();
+                return BadRequest(_localizer["IncorrectPasswordOrEmail"].Value);
             }
 
             var claims = await _userManager.GetClaimsAsync(identityUser);
