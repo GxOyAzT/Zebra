@@ -5,11 +5,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
+using Microsoft.OpenApi.Models;
 using Zebra.ProductService.Application;
-using Zebra.ProductService.Domain.Entities;
 using Zebra.ProductService.Persistance.Context;
 using Zebra.ProductService.Persistance.Repository.Price;
 using Zebra.ProductService.Persistance.Repository.Product;
@@ -46,6 +43,11 @@ namespace Zebra.ProductService.API
             services.AddScoped<IRatingRepository, RatingRepository>();
 
             services.AddControllers();
+
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Zebra.ProductService.API", Version = "v1" });
+            });
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -53,6 +55,8 @@ namespace Zebra.ProductService.API
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UseSwagger();
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Zebra.ProductService.API"));
             }
 
             app.UseHttpsRedirection();
