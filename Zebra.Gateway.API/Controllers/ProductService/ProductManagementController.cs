@@ -28,11 +28,11 @@ namespace Zebra.Gateway.API.Controllers.ProductService
 
         [HttpGet]
         [Route("getproducts")]
-        public async Task<IActionResult> GetProducts()
+        public async Task<IActionResult> GetProducts([FromHeader(Name = "Accept-Language")] string lang)
         {
             try
             {
-                var products = await _productManagementFetch.GetProducts();
+                var products = await _productManagementFetch.GetProducts(lang);
                 return Ok(products);
             }
             catch (HttpRequestException ex)
@@ -44,12 +44,12 @@ namespace Zebra.Gateway.API.Controllers.ProductService
 
         [HttpGet]
         [Route("getproduct/{productId}")]
-        public async Task<IActionResult> GetProduct(Guid productId)
+        public async Task<IActionResult> GetProduct(Guid productId, [FromHeader(Name = "Accept-Language")] string lang)
         {
             try
             {
                 var query = new GetProductQuery(productId);
-                var products = await _productManagementFetch.GetProduct(query);
+                var products = await _productManagementFetch.GetProduct(query, lang);
                 return Ok(products);
             }
             catch (ApiException ex)
