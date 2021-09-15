@@ -8,5 +8,8 @@ namespace Zebra.Gateway.API.ApiCalls.Auth
     {
         [Post("/api/client/login")]
         Task<string> Login([Body] RegisterLoginClientApiModel model, [Header("Accept-Language")] string lang);
+
+        [Post("/api/client/register")]
+        Task<string> Register([Body] RegisterLoginClientApiModel model, [Header("Accept-Language")] string lang);
     }
 }
