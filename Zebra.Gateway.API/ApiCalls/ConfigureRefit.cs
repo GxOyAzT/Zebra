@@ -2,6 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using Refit;
 using System;
+using Zebra.Gateway.API.ApiCalls.Auth;
 using Zebra.Gateway.API.ApiCalls.ProductService;
 
 namespace Zebra.Gateway.API.ApiCalls
@@ -15,6 +16,9 @@ namespace Zebra.Gateway.API.ApiCalls
 
             services.AddRefitClient<IProductManagementFetch>().ConfigureHttpClient(c =>
                 c.BaseAddress = new Uri(configuration["Apis:ProductService"]));
+
+            services.AddRefitClient<IClientFetch>().ConfigureHttpClient(c =>
+                c.BaseAddress = new Uri(configuration["Apis:Auth"]));
         }
     }
 }

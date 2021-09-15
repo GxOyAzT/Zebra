@@ -7,6 +7,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System;
+using System.Diagnostics;
 using System.Text;
 using Zebra.Gateway.API.ApiCalls;
 using Zebra.Shared.LoggerDriver.DIConfiguration;
@@ -26,7 +27,14 @@ namespace Zebra.Gateway.API
         {
             services.ConfiguteRefit(Configuration);
 
-            services.ConfigureLoggerDriver("Gateway");
+            if (Debugger.IsAttached)
+            {
+                services.ConfigureLoggerDriver("Gateway", false);
+            }
+            else
+            {
+                services.ConfigureLoggerDriver("Gateway");
+            }
 
             services.AddControllers();
 
