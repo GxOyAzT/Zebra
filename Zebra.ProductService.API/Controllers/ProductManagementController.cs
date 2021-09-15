@@ -60,7 +60,7 @@ namespace Zebra.ProductService.API.Controllers
             return Ok(productModel);
         }
 
-        [HttpPost]
+        [HttpPut]
         [Route("updateproduct")]
         public async Task<IActionResult> UpdateProduct([FromBody] UpdateProductCommand request)
         {
@@ -82,6 +82,29 @@ namespace Zebra.ProductService.API.Controllers
             catch (IncorrectInputFormatException ex)
             {
                 _messageLogger.Log($"{ex.Message} (ProductManagementController.UpdateProduct)", LogTypeEnum.Information);
+                return BadRequest(ex.Message);
+            }
+
+            return Ok();
+        }
+
+        [HttpPost]
+        [Route("addproduct")]
+        public async Task<IActionResult> AddProduct([FromBody] AddProductCommand request)
+        {
+            if (request == null)
+            {
+                _messageLogger.Log("AddProductCommand is null (ProductManagementController.AddProduct)", LogTypeEnum.Information);
+                return BadRequest("Request object cannot be empty.");
+            }
+
+            try
+            {
+                await _mediator.Send(request);
+            }
+            catch (IncorrectInputFormatException ex)
+            {
+                _messageLogger.Log($"{ex.Message} (ProductManagementController.AddProduct)", LogTypeEnum.Information);
                 return BadRequest(ex.Message);
             }
 
