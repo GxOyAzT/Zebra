@@ -14,13 +14,16 @@ namespace Zebra.Gateway.API.Controllers.Auth
     public class ClientController : ControllerBase
     {
         private readonly IClientFetch _clientFetch;
+        private readonly ILoginFetch _loginFetch;
         private readonly IMessageLogger _messageLogger;
 
         public ClientController(
             IClientFetch clientFetch,
+            ILoginFetch loginFetch,
             IMessageLogger messageLogger)
         {
             _clientFetch = clientFetch;
+            _loginFetch = loginFetch;
             _messageLogger = messageLogger;
         }
 
@@ -31,7 +34,7 @@ namespace Zebra.Gateway.API.Controllers.Auth
         {
             try
             {
-                var token = await _clientFetch.Login(model, lang);
+                var token = await _loginFetch.Login(model, lang);
                 return Ok(token);
             }
             catch (ApiException ex)
@@ -53,7 +56,7 @@ namespace Zebra.Gateway.API.Controllers.Auth
         {
             try
             {
-                var token = await _clientFetch.Login(model, lang);
+                var token = await _clientFetch.Register(model, lang);
                 return Ok(token);
             }
             catch (ApiException ex)

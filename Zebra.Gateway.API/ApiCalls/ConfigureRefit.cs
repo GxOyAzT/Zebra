@@ -19,6 +19,9 @@ namespace Zebra.Gateway.API.ApiCalls
 
             services.AddRefitClient<IClientFetch>().ConfigureHttpClient(c =>
                 c.BaseAddress = new Uri(configuration["Apis:Auth"]));
+
+            services.AddRefitClient<ILoginFetch>().ConfigureHttpClient(c =>
+                c.BaseAddress = new Uri(configuration["Apis:Auth"]));
         }
     }
 }
