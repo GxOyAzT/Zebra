@@ -51,7 +51,7 @@ namespace Zebra.AuthService.API.Controllers
 
             var token = _createToken.Create(claims);
 
-            return Ok(token);
+            return Ok(new TokenApiModel(user.Email, token));
         }
     }
 }
