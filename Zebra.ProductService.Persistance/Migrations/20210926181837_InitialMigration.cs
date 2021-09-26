@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Zebra.ProductService.Persistance.Migrations
 {
-    public partial class InitProductDb : Migration
+    public partial class InitialMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -30,7 +30,8 @@ namespace Zebra.ProductService.Persistance.Migrations
                     Tax = table.Column<int>(type: "int", nullable: false),
                     Cost = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     From = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    ProductModelId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    ProductId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    ProductModelId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -40,25 +41,25 @@ namespace Zebra.ProductService.Persistance.Migrations
                         column: x => x.ProductModelId,
                         principalTable: "Products",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
-                name: "RatingModel",
+                name: "Ratings",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    ProductId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Review = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Score = table.Column<int>(type: "int", nullable: false),
                     AddDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ProductId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     ProductModelId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_RatingModel", x => x.Id);
+                    table.PrimaryKey("PK_Ratings", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_RatingModel_Products_ProductModelId",
+                        name: "FK_Ratings_Products_ProductModelId",
                         column: x => x.ProductModelId,
                         principalTable: "Products",
                         principalColumn: "Id",
@@ -71,8 +72,8 @@ namespace Zebra.ProductService.Persistance.Migrations
                 column: "ProductModelId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_RatingModel_ProductModelId",
-                table: "RatingModel",
+                name: "IX_Ratings_ProductModelId",
+                table: "Ratings",
                 column: "ProductModelId");
         }
 
@@ -82,7 +83,7 @@ namespace Zebra.ProductService.Persistance.Migrations
                 name: "Prices");
 
             migrationBuilder.DropTable(
-                name: "RatingModel");
+                name: "Ratings");
 
             migrationBuilder.DropTable(
                 name: "Products");

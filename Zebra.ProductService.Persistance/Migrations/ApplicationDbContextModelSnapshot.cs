@@ -31,7 +31,10 @@ namespace Zebra.ProductService.Persistance.Migrations
                     b.Property<DateTime>("From")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid>("ProductModelId")
+                    b.Property<Guid>("ProductId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("ProductModelId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("Tax")
@@ -92,16 +95,14 @@ namespace Zebra.ProductService.Persistance.Migrations
 
                     b.HasIndex("ProductModelId");
 
-                    b.ToTable("RatingModel");
+                    b.ToTable("Ratings");
                 });
 
             modelBuilder.Entity("Zebra.ProductService.Domain.Entities.PriceModel", b =>
                 {
                     b.HasOne("Zebra.ProductService.Domain.Entities.ProductModel", null)
                         .WithMany("Prices")
-                        .HasForeignKey("ProductModelId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ProductModelId");
                 });
 
             modelBuilder.Entity("Zebra.ProductService.Domain.Entities.RatingModel", b =>
