@@ -5,7 +5,6 @@ using System;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Zebra.Gateway.API.ApiCalls.ProductService;
-using Zebra.Gateway.API.ApiCalls.ProductService.Queries;
 using Zebra.Shared.LoggerDriver.Services.Interfaces;
 using Zebra.Gateway.API.ApiCalls.ProductService.Commands;
 
@@ -49,9 +48,29 @@ namespace Zebra.Gateway.API.Controllers.ProductService
         {
             try
             {
-                var query = new GetProductQuery(productId);
-                var products = await _productManagementFetch.GetProduct(query, lang);
+                var products = await _productManagementFetch.GetProduct(productId, lang);
                 return Ok(products);
+            }
+            catch (ApiException ex)
+            {
+                _messageLogger.Log(ex.Content, Shared.LoggerDriver.Domain.Enums.LogTypeEnum.Information);
+                return StatusCode((int)ex.StatusCode, ex.Content);
+            }
+            catch (HttpRequestException ex)
+            {
+                _messageLogger.Log("Cannot fetch IProductClientFetch", Shared.LoggerDriver.Domain.Enums.LogTypeEnum.Information);
+                return StatusCode(417);
+            }
+        }
+
+        [HttpGet]
+        [Route("getentireproduct/{productId}")]
+        public async Task<IActionResult> GetEntireProduct(Guid productId, [FromHeader(Name = "Accept-Language")] string lang)
+        {
+            try
+            {
+                var product = await _productManagementFetch.GetEntireProduct(productId, lang);
+                return Ok(product);
             }
             catch (ApiException ex)
             {

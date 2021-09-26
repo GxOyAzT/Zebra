@@ -15,4 +15,8 @@
     <ProjectReference Include="..\Zebra.Shared.LoggerDriver\Zebra.Shared.LoggerDriver.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="ApiCalls\ProductService\Queries\" />
+  </ItemGroup>
+
 </Project>
