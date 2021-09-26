@@ -22,7 +22,7 @@ namespace Zebra.ProductService.Application.Features.Price.Queries
 
         public async Task<List<PriceModel>> Handle(GetAllProductPricesQuery request, CancellationToken cancellationToken)
         {
-            return (await _priceRepository.GetAll()).Where(e => e.ProductModelId == request.ProductId).ToList();
+            return (await _priceRepository.GetAll()).Where(e => e.ProductId == request.ProductId).OrderByDescending(e => e.From).ToList();
         }
     }
 }

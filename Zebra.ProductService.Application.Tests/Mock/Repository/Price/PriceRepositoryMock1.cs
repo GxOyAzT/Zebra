@@ -19,7 +19,7 @@ namespace Zebra.ProductService.Application.Tests.Mock.Repository.Price
                 new PriceModel()
                 {
                     Id = Guid.Parse("00000000-0000-0000-0000-000000000001"),
-                    ProductModelId = Guid.Parse("00000000-0000-0000-0001-000000000000"),
+                    ProductId = Guid.Parse("00000000-0000-0000-0001-000000000000"),
                     Tax = 10,
                     Cost = 10,
                     From = DateTime.Now.AddDays(10)
@@ -27,7 +27,7 @@ namespace Zebra.ProductService.Application.Tests.Mock.Repository.Price
                 new PriceModel()
                 {
                     Id = Guid.Parse("00000000-0000-0000-0000-000000000002"),
-                    ProductModelId = Guid.Parse("00000000-0000-0000-0001-000000000000"),
+                    ProductId = Guid.Parse("00000000-0000-0000-0001-000000000000"),
                     Tax = 11,
                     Cost = 11,
                     From = DateTime.Now.AddDays(5)
@@ -35,7 +35,7 @@ namespace Zebra.ProductService.Application.Tests.Mock.Repository.Price
                 new PriceModel()
                 {
                     Id = Guid.Parse("00000000-0000-0000-0000-000000000003"),
-                    ProductModelId = Guid.Parse("00000000-0000-0000-0002-000000000000"),
+                    ProductId = Guid.Parse("00000000-0000-0000-0002-000000000000"),
                     Tax = 11,
                     Cost = 11,
                     From = DateTime.Now

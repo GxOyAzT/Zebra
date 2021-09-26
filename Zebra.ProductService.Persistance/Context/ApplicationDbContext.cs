@@ -11,6 +11,7 @@ namespace Zebra.ProductService.Persistance.Context
 
         public DbSet<ProductModel> Products { get; set; }
         public DbSet<PriceModel> Prices { get; set; }
+        public DbSet<RatingModel> Ratings { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
