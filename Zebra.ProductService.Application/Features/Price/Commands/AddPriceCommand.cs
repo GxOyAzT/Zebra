@@ -1,7 +1,9 @@
 ﻿using MediatR;
 using System;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Zebra.ProductService.Application.Features.Price.Queries;
 using Zebra.ProductService.Application.Features.Product.Queries;
 using Zebra.ProductService.Domain.Entities;
 using Zebra.ProductService.Domain.Exceptions;
@@ -44,12 +46,23 @@ namespace Zebra.ProductService.Application.Features.Price.Commands
                 throw new IncorrectInputFormatException($"Price premiere date cannot be earlier then next day. Actual: {request.From}");
             }
 
+            var getAllProductPricesQuery = new GetAllProductPricesQuery(request.ProductId);
+
+            var pricesForProduct = await _mediator.Send(getAllProductPricesQuery);
+
+            var priceWhereDate = pricesForProduct.FirstOrDefault(e => e.From == request.From.Date);
+
+            if (priceWhereDate != null)
+            {
+                throw new DomainRulesException($"Premiere price of date {request.From.Date.ToString("dd-MM-yyyy")} already exists.");
+            }
+
             var price = new PriceModel()
             {
-                ProductModelId = request.ProductId,
+                ProductId = request.ProductId,
                 Cost = request.Cost,
                 Tax = request.Tax,
-                From = request.From
+                From = request.From.Date
             };
 
             await _priceRepository.Insert(price);
