@@ -2,14 +2,11 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using Zebra.ProductService.Application.ApiModels;
+using Zebra.ProductService.Application.ApiModels.Product;
 using Zebra.ProductService.Application.Features.Price.Queries;
-using Zebra.ProductService.Domain.Entities;
 using Zebra.ProductService.Domain.Exceptions;
-using Zebra.ProductService.Persistance.Repository.Product;
 
 namespace Zebra.ProductService.Application.Features.Product.Queries
 {

@@ -10,8 +10,8 @@ using Zebra.ProductService.Persistance.Context;
 namespace Zebra.ProductService.Persistance.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210914130828_InitProductDb")]
-    partial class InitProductDb
+    [Migration("20210926181837_InitialMigration")]
+    partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -33,7 +33,10 @@ namespace Zebra.ProductService.Persistance.Migrations
                     b.Property<DateTime>("From")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid>("ProductModelId")
+                    b.Property<Guid>("ProductId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("ProductModelId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("Tax")
@@ -94,16 +97,14 @@ namespace Zebra.ProductService.Persistance.Migrations
 
                     b.HasIndex("ProductModelId");
 
-                    b.ToTable("RatingModel");
+                    b.ToTable("Ratings");
                 });
 
             modelBuilder.Entity("Zebra.ProductService.Domain.Entities.PriceModel", b =>
                 {
                     b.HasOne("Zebra.ProductService.Domain.Entities.ProductModel", null)
                         .WithMany("Prices")
-                        .HasForeignKey("ProductModelId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ProductModelId");
                 });
 
             modelBuilder.Entity("Zebra.ProductService.Domain.Entities.RatingModel", b =>
