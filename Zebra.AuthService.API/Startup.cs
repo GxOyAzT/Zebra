@@ -42,10 +42,7 @@ namespace Zebra.AuthService.API
                 conf.User.RequireUniqueEmail = true;
             }).AddEntityFrameworkStores<AuthDbContext>();
 
-            if (true)
-            {
-                services.ConfigureLoggerDriver("AuthService");
-            }
+            services.ConfigureLoggerDriver("AuthService");
 
             services.AddScoped<ICreateToken, CreateToken>();
 
