@@ -12,7 +12,7 @@ namespace Zebra.Shared.FileDriver.DependencyInjection
             services.AddTransient<ISaveFile, SaveFile>();
             services.AddTransient<IDeleteFile, DeleteFile>();
 
-            services.AddSingleton<Options>(new Options(rootPath));
+            services.AddSingleton(new Options(rootPath));
 
             return services;
         }
