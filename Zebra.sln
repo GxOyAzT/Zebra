@@ -38,6 +38,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Gateway", "Gateway", "{EFA1
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Zebra.Gateway.API", "Zebra.Gateway.API\Zebra.Gateway.API.csproj", "{F2736856-CF3A-4E6F-8F4C-923B6AD0939E}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Zebra.ProductService.Domain.Tests", "Zebra.ProductService.Domain.Tests\Zebra.ProductService.Domain.Tests.csproj", "{833EE421-5675-4FA4-BD83-BAF35FDDF23C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zebra.Shared.FileDriver", "Zebra.Shared.FileDriver\Zebra.Shared.FileDriver.csproj", "{9B1051CC-0CF9-43B0-B29F-6F034E6AAB71}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zebra.Shared.FileDriver.Tests", "Zebra.Shared.FileDriver.Tests\Zebra.Shared.FileDriver.Tests.csproj", "{3AF18ACA-783E-45BD-BBC7-9D2AE9F3B5EB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -84,6 +90,18 @@ Global
 		{F2736856-CF3A-4E6F-8F4C-923B6AD0939E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F2736856-CF3A-4E6F-8F4C-923B6AD0939E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F2736856-CF3A-4E6F-8F4C-923B6AD0939E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{833EE421-5675-4FA4-BD83-BAF35FDDF23C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{833EE421-5675-4FA4-BD83-BAF35FDDF23C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{833EE421-5675-4FA4-BD83-BAF35FDDF23C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{833EE421-5675-4FA4-BD83-BAF35FDDF23C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9B1051CC-0CF9-43B0-B29F-6F034E6AAB71}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9B1051CC-0CF9-43B0-B29F-6F034E6AAB71}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9B1051CC-0CF9-43B0-B29F-6F034E6AAB71}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9B1051CC-0CF9-43B0-B29F-6F034E6AAB71}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3AF18ACA-783E-45BD-BBC7-9D2AE9F3B5EB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3AF18ACA-783E-45BD-BBC7-9D2AE9F3B5EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3AF18ACA-783E-45BD-BBC7-9D2AE9F3B5EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3AF18ACA-783E-45BD-BBC7-9D2AE9F3B5EB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -99,6 +117,9 @@ Global
 		{2796CF08-FA0C-438A-8C8C-0FD6DF17A458} = {DA502E53-1543-4A6E-AB56-4FD7BD456B32}
 		{254DA47F-E293-48C0-8550-71834A09CE26} = {D6D82D41-D4DF-4733-A093-BEFE22982A4C}
 		{F2736856-CF3A-4E6F-8F4C-923B6AD0939E} = {EFA1FB4A-EBB2-4BA9-8988-ABDD0BF13789}
+		{833EE421-5675-4FA4-BD83-BAF35FDDF23C} = {5A53E358-184F-4E50-8856-CB43B99CC914}
+		{9B1051CC-0CF9-43B0-B29F-6F034E6AAB71} = {DA502E53-1543-4A6E-AB56-4FD7BD456B32}
+		{3AF18ACA-783E-45BD-BBC7-9D2AE9F3B5EB} = {DA502E53-1543-4A6E-AB56-4FD7BD456B32}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {68C19DED-5A65-4AC2-80C1-CC12385FDD6D}
