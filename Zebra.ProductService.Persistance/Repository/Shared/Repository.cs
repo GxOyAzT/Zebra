@@ -9,7 +9,7 @@ namespace Zebra.ProductService.Persistance.Repository.Shared
 {
     public abstract class Repository<TEntity> : IRepository<TEntity> where TEntity : Entity
     {
-        private readonly ApplicationDbContext _dbContext;
+        protected readonly ApplicationDbContext _dbContext;
 
         public Repository(ApplicationDbContext dbContext)
         {
