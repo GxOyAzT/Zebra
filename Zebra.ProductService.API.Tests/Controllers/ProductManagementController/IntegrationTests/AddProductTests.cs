@@ -40,7 +40,7 @@ namespace Zebra.ProductService.API.Tests.Controllers.ProductManagementController
         [Fact]
         public async Task Ok()
         {
-            var command = new AddProductCommand("New Product", "New product description.");
+            var command = new AddProductCommand("New Product", "New product description.", "");
 
             var response = await _client.PostAsync("api/ProductManagement/addproduct", new StringContent(JsonConvert.SerializeObject(command), Encoding.UTF8, "application/json"));
 
@@ -50,7 +50,7 @@ namespace Zebra.ProductService.API.Tests.Controllers.ProductManagementController
         [Fact]
         public async Task Empty_Name()
         {
-            var command = new AddProductCommand("", "New product description.");
+            var command = new AddProductCommand("", "New product description.", "");
 
             var response = await _client.PostAsync("api/ProductManagement/addproduct", new StringContent(JsonConvert.SerializeObject(command), Encoding.UTF8, "application/json"));
 

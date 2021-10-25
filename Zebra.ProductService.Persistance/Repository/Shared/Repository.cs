@@ -28,10 +28,12 @@ namespace Zebra.ProductService.Persistance.Repository.Shared
         public virtual async Task<List<TEntity>> GetAll() =>
             await _dbContext.Set<TEntity>().ToListAsync();
 
-        public virtual async Task Insert(TEntity entity)
+        public virtual async Task<Guid> Insert(TEntity entity)
         {
             await _dbContext.Set<TEntity>().AddAsync(entity);
             await _dbContext.SaveChangesAsync();
+
+            return entity.Id;
         }
 
         public virtual async Task Update(TEntity entity)

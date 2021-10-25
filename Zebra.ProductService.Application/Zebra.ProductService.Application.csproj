@@ -6,10 +6,12 @@
 
   <ItemGroup>
     <PackageReference Include="MediatR" Version="9.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Http.Features" Version="5.0.11" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Zebra.ProductService.Persistance\Zebra.ProductService.Persistance.csproj" />
+    <ProjectReference Include="..\Zebra.Shared.FileDriver\Zebra.Shared.FileDriver.csproj" />
   </ItemGroup>
 
 </Project>

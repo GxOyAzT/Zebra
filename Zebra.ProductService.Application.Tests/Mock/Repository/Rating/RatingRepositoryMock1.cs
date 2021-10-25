@@ -47,10 +47,10 @@ namespace Zebra.ProductService.Application.Tests.Mock.Repository.Rating
             return Task.FromResult(Ratings);
         }
 
-        public Task Insert(RatingModel entity)
+        public Task<Guid> Insert(RatingModel entity)
         {
             Ratings.Add(entity);
-            return Task.CompletedTask;
+            return Task.FromResult(Guid.NewGuid());
         }
 
         public Task Update(RatingModel entity)
