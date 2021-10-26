@@ -25,11 +25,11 @@ namespace Zebra.Gateway.API.Controllers.ProductService
         [AllowAnonymous]
         [HttpGet]
         [Route("getallavaliableproducts")]
-        public async Task<IActionResult> GetAllAvaliableProducts()
+        public async Task<IActionResult> GetAllAvaliableProducts([FromHeader(Name = "Accept-Language")] string lang)
         {
             try
             {
-                var products = await _productClientFetch.GetAllAvaliableProducts();
+                var products = await _productClientFetch.GetAllAvaliableProducts(lang);
                 return Ok(products);
             }
             catch (HttpRequestException ex)

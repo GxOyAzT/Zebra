@@ -12,8 +12,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Zebra.ProductService.Domain\Zebra.ProductService.Domain.csproj" />
     <ProjectReference Include="..\Zebra.Shared.LoggerDriver\Zebra.Shared.LoggerDriver.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="ApiCalls\ProductService\Queries\" />
   </ItemGroup>
 
 </Project>

@@ -5,8 +5,8 @@ using System;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Zebra.Gateway.API.ApiCalls.ProductService;
-using Zebra.Gateway.API.ApiCalls.ProductService.Queries;
 using Zebra.Shared.LoggerDriver.Services.Interfaces;
+using Zebra.Gateway.API.ApiCalls.ProductService.Commands;
 
 namespace Zebra.Gateway.API.Controllers.ProductService
 {
@@ -28,11 +28,11 @@ namespace Zebra.Gateway.API.Controllers.ProductService
 
         [HttpGet]
         [Route("getproducts")]
-        public async Task<IActionResult> GetProducts()
+        public async Task<IActionResult> GetProducts([FromHeader(Name = "Accept-Language")] string lang)
         {
             try
             {
-                var products = await _productManagementFetch.GetProducts();
+                var products = await _productManagementFetch.GetProducts(lang);
                 return Ok(products);
             }
             catch (HttpRequestException ex)
@@ -44,13 +44,75 @@ namespace Zebra.Gateway.API.Controllers.ProductService
 
         [HttpGet]
         [Route("getproduct/{productId}")]
-        public async Task<IActionResult> GetProduct(Guid productId)
+        public async Task<IActionResult> GetProduct(Guid productId, [FromHeader(Name = "Accept-Language")] string lang)
         {
             try
             {
-                var query = new GetProductQuery(productId);
-                var products = await _productManagementFetch.GetProduct(query);
+                var products = await _productManagementFetch.GetProduct(productId, lang);
                 return Ok(products);
+            }
+            catch (ApiException ex)
+            {
+                _messageLogger.Log(ex.Content, Shared.LoggerDriver.Domain.Enums.LogTypeEnum.Information);
+                return StatusCode((int)ex.StatusCode, ex.Content);
+            }
+            catch (HttpRequestException ex)
+            {
+                _messageLogger.Log("Cannot fetch IProductClientFetch", Shared.LoggerDriver.Domain.Enums.LogTypeEnum.Information);
+                return StatusCode(417);
+            }
+        }
+
+        [HttpGet]
+        [Route("getentireproduct/{productId}")]
+        public async Task<IActionResult> GetEntireProduct(Guid productId, [FromHeader(Name = "Accept-Language")] string lang)
+        {
+            try
+            {
+                var product = await _productManagementFetch.GetEntireProduct(productId, lang);
+                return Ok(product);
+            }
+            catch (ApiException ex)
+            {
+                _messageLogger.Log(ex.Content, Shared.LoggerDriver.Domain.Enums.LogTypeEnum.Information);
+                return StatusCode((int)ex.StatusCode, ex.Content);
+            }
+            catch (HttpRequestException ex)
+            {
+                _messageLogger.Log("Cannot fetch IProductClientFetch", Shared.LoggerDriver.Domain.Enums.LogTypeEnum.Information);
+                return StatusCode(417);
+            }
+        }
+
+        [HttpPut]
+        [Route("updateproduct")]
+        public async Task<IActionResult> UpdateProduct([FromBody] UpdateProductCommand command, [FromHeader(Name = "Accept-Language")] string lang)
+        {
+            try
+            {
+                await _productManagementFetch.UpdateProduct(command, lang);
+                return Ok();
+            }
+            catch (ApiException ex)
+            {
+                _messageLogger.Log(ex.Content, Shared.LoggerDriver.Domain.Enums.LogTypeEnum.Information);
+                return StatusCode((int)ex.StatusCode, ex.Content);
+            }
+            catch (HttpRequestException ex)
+            {
+                _messageLogger.Log("Cannot fetch IProductClientFetch", Shared.LoggerDriver.Domain.Enums.LogTypeEnum.Information);
+                return StatusCode(417);
+            }
+        }
+
+        [HttpPost]
+        [Route("addproduct")]
+        public async Task<IActionResult> AddProduct([FromBody] AddProductCommand command, [FromHeader(Name = "Accept-Language")] string lang)
+        {
+            try
+            {
+                await _productManagementFetch.AddProduct(command, lang);
+                return Ok();
             }
             catch (ApiException ex)
             {
