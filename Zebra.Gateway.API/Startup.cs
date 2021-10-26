@@ -38,6 +38,18 @@ namespace Zebra.Gateway.API
 
             services.AddControllers();
 
+            services.AddCors(options =>
+            {
+                options.AddPolicy(name: "WebCors",
+                                  builder =>
+                                  {
+                                      builder.WithOrigins("http://localhost:3000")
+                                          .AllowAnyHeader()
+                                          .AllowAnyMethod()
+                                          .AllowAnyOrigin();
+                                  });
+            });
+
             services.AddAuthentication(opt =>
             {
                 opt.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -81,6 +93,8 @@ namespace Zebra.Gateway.API
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseCors("WebCors");
 
             app.UseAuthentication();
             app.UseAuthorization();
