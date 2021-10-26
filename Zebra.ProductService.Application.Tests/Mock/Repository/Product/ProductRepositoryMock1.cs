@@ -38,10 +38,10 @@ namespace Zebra.ProductService.Application.Tests.Mock.Repository.Product
             return Task.FromResult(ProductModels);
         }
 
-        public Task Insert(ProductModel entity)
+        public Task<Guid> Insert(ProductModel entity)
         {
             ProductModels.Add(entity);
-            return Task.CompletedTask;
+            return Task.FromResult(Guid.NewGuid());
         }
 
         public Task Update(ProductModel entity)

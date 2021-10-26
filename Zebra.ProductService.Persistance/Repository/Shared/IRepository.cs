@@ -9,7 +9,7 @@ namespace Zebra.ProductService.Persistance.Repository.Shared
     {
         Task<List<TEntity>> GetAll();
         Task<TEntity> Get(Guid id);
-        Task Insert(TEntity entity);
+        Task<Guid> Insert(TEntity entity);
         Task Update(TEntity entity);
         Task Delete(TEntity entity);
     }

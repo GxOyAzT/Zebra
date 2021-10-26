@@ -65,10 +65,10 @@ namespace Zebra.ProductService.API.Tests.Mock.Repositories.Price
             return Task.FromResult(PriceModels);
         }
 
-        public Task Insert(PriceModel entity)
+        public Task<Guid> Insert(PriceModel entity)
         {
             PriceModels.Add(entity);
-            return Task.CompletedTask;
+            return Task.FromResult(Guid.NewGuid());
         }
 
         public Task Update(PriceModel entity)
