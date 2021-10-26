@@ -8,10 +8,12 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using System.Diagnostics;
 using Zebra.ProductService.Application;
+using Zebra.ProductService.Application.Features.Files;
 using Zebra.ProductService.Persistance.Context;
 using Zebra.ProductService.Persistance.Repository.Price;
 using Zebra.ProductService.Persistance.Repository.Product;
 using Zebra.ProductService.Persistance.Repository.Rating;
+using Zebra.Shared.FileDriver.DependencyInjection;
 using Zebra.Shared.LoggerDriver.DIConfiguration;
 
 namespace Zebra.ProductService.API
@@ -49,6 +51,10 @@ namespace Zebra.ProductService.API
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<IPriceRepository, PriceRepository>();
             services.AddScoped<IRatingRepository, RatingRepository>();
+
+            services.AddSingleton<IRelativeFilePathResolver, RelativeFilePathResolver>();
+
+            services.AddFileManager(Configuration["FilesRootPath"]);
 
             services.AddControllers();
 

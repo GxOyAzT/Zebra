@@ -40,9 +40,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Zebra.Gateway.API", "Zebra.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Zebra.ProductService.Domain.Tests", "Zebra.ProductService.Domain.Tests\Zebra.ProductService.Domain.Tests.csproj", "{833EE421-5675-4FA4-BD83-BAF35FDDF23C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zebra.Shared.FileDriver", "Zebra.Shared.FileDriver\Zebra.Shared.FileDriver.csproj", "{9B1051CC-0CF9-43B0-B29F-6F034E6AAB71}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Zebra.Shared.FileDriver", "Zebra.Shared.FileDriver\Zebra.Shared.FileDriver.csproj", "{9B1051CC-0CF9-43B0-B29F-6F034E6AAB71}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zebra.Shared.FileDriver.Tests", "Zebra.Shared.FileDriver.Tests\Zebra.Shared.FileDriver.Tests.csproj", "{3AF18ACA-783E-45BD-BBC7-9D2AE9F3B5EB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Zebra.Shared.FileDriver.Tests", "Zebra.Shared.FileDriver.Tests\Zebra.Shared.FileDriver.Tests.csproj", "{3AF18ACA-783E-45BD-BBC7-9D2AE9F3B5EB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
