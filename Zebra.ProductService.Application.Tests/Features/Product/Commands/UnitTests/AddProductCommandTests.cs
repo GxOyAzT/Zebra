@@ -31,7 +31,7 @@ namespace Zebra.ProductService.Application.Tests.Features.Product.Commands.UnitT
             var mockProductRepo = new ProductRepositoryMock1();
 
             // create request
-            var request = new AddProductCommand("Name", "", "");
+            var request = new AddProductCommand("Name", "", "", "12345678930");
 
             // Actual test
             await Assert.ThrowsAsync<IncorrectInputFormatException>(() => new AddProductCommandHandler(mediator, mockProductRepo, relativeFilePathResolver.Object).Handle(request, new CancellationToken()));
@@ -56,7 +56,7 @@ namespace Zebra.ProductService.Application.Tests.Features.Product.Commands.UnitT
             var mockProductRepo = new ProductRepositoryMock1();
 
             // create request
-            var request = new AddProductCommand("Correct Name", "", "");
+            var request = new AddProductCommand("Correct Name", "", "", "12345678930");
 
             // Actual test
             await new AddProductCommandHandler(mediator, mockProductRepo, relativeFilePathResolver.Object).Handle(request, new CancellationToken());

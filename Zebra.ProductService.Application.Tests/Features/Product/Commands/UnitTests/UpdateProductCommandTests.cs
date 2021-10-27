@@ -27,7 +27,7 @@ namespace Zebra.ProductService.Application.Tests.Features.Product.Commands.UnitT
             var mockProductRepo = new ProductRepositoryMock1();
 
             // create request
-            var request = new UpdateProductCommand(Guid.Empty, "Name", "", true);
+            var request = new UpdateProductCommand(Guid.Empty, "Name", "", true, "12345678930");
 
             // Actual test
             await Assert.ThrowsAsync<IncorrectInputFormatException>(() => new UpdateProductCommandHandler(mediator, mockProductRepo).Handle(request, new CancellationToken()));
@@ -47,7 +47,7 @@ namespace Zebra.ProductService.Application.Tests.Features.Product.Commands.UnitT
             var mockProductRepo = new ProductRepositoryMock1();
 
             // create request
-            var request = new UpdateProductCommand(Guid.Empty, "valid_product_name", "", true);
+            var request = new UpdateProductCommand(Guid.Empty, "valid_product_name", "", true, "12345678930");
 
             // Actual test
             await Assert.ThrowsAsync<CannotFindEntityException>(() => new UpdateProductCommandHandler(mediator, mockProductRepo).Handle(request, new CancellationToken()));
@@ -67,7 +67,7 @@ namespace Zebra.ProductService.Application.Tests.Features.Product.Commands.UnitT
             var mockProductRepo = new ProductRepositoryMock1();
 
             // create request
-            var request = new UpdateProductCommand(Guid.Empty, "valid_product_name", "", true);
+            var request = new UpdateProductCommand(Guid.Empty, "valid_product_name", "", true, "12345678930");
 
             // Actual test
             await new UpdateProductCommandHandler(mediator, mockProductRepo).Handle(request, new CancellationToken());

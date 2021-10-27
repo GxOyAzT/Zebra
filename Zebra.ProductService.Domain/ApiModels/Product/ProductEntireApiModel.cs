@@ -81,5 +81,12 @@ namespace Zebra.ProductService.Domain.ApiModels.Product
                 return (float)Math.Round(Ratings.Sum(e => e.Score) * 1.0 / Ratings.Count, 1);
             }
         }
+
+        public string ImageSrc { get; set; }
+
+        public string ReadableAddProductDate
+        {
+            get => Product != null ? Product.AddDate.ToString("dd-MM-yyyy") : "";
+        }
     }
 }

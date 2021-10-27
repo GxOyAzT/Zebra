@@ -26,7 +26,10 @@ namespace Zebra.ProductService.Application.Features.Product.Queries
 
             var products = await _mediator.Send(getAllProductsQuery);
 
-            products = products.Where(e => e.Name.Contains(request.FilterString)).ToList();
+            if (!String.IsNullOrEmpty(request.FilterString))
+            {
+                products = products.Where(e => e.Ean.Contains(request.FilterString) || e.Name.Contains(request.FilterString)).ToList();
+            }
 
             if (request.IsInSaleFilter != IsInSaleFilterEnum.Ignore)
             {

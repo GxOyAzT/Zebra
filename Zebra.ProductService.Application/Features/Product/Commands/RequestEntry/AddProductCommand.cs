@@ -9,7 +9,7 @@ using Zebra.ProductService.Persistance.Repository.Product;
 
 namespace Zebra.ProductService.Application.Features.Product.Commands.RequestEntry
 {
-    public sealed record AddProductCommand(string Name, string Description, string ImageSrc) : IRequest<Guid>;
+    public sealed record AddProductCommand(string Name, string Description, string ImageSrc, string Ean) : IRequest<Guid>;
 
     public sealed class AddProductCommandHandler : IRequestHandler<AddProductCommand, Guid>
     {
@@ -29,14 +29,15 @@ namespace Zebra.ProductService.Application.Features.Product.Commands.RequestEntr
 
         public async Task<Guid> Handle(AddProductCommand request, CancellationToken cancellationToken)
         {
-            await _mediator.Send(new ValidateProductInputCommand(request.Name, request.Description));
+            await _mediator.Send(new ValidateProductInputCommand(request.Name, request.Description, request.Ean));
 
             var product = new ProductModel()
             {
                 Name = request.Name,
                 Description = request.Description,
                 IsInSale = false,
-                AddDate = DateTime.Now
+                AddDate = DateTime.Now,
+                Ean = request.Ean
             };
 
             var resut = await _productRepository.Insert(product);

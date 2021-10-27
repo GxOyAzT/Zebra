@@ -40,7 +40,7 @@ namespace Zebra.ProductService.API.Tests.Controllers.ProductManagementController
         [Fact]
         public async Task Test_Ok()
         {
-            var requestBody = new UpdateProductCommand(Guid.Parse("00000000-0000-0000-0000-000000000002"), "Product 2 after update", "", true);
+            var requestBody = new UpdateProductCommand(Guid.Parse("00000000-0000-0000-0000-000000000002"), "Product 2 after update", "", true, "12345678930");
 
             var response = await _client.PostAsync("api/ProductManagement/updateproduct", new StringContent(JsonConvert.SerializeObject(requestBody), Encoding.UTF8, "application/json"));
 
@@ -50,7 +50,7 @@ namespace Zebra.ProductService.API.Tests.Controllers.ProductManagementController
         [Fact]
         public async Task Test_Product_OfId_DoesNotExists()
         {
-            var requestBody = new UpdateProductCommand(Guid.Parse("00000000-0000-0000-0000-000000000000"), "Incorrect guid", "", true);
+            var requestBody = new UpdateProductCommand(Guid.Parse("00000000-0000-0000-0000-000000000000"), "Incorrect guid", "", true, "12345678930");
 
             var response = await _client.PostAsync("api/ProductManagement/updateproduct", new StringContent(JsonConvert.SerializeObject(requestBody), Encoding.UTF8, "application/json"));
 
@@ -60,7 +60,7 @@ namespace Zebra.ProductService.API.Tests.Controllers.ProductManagementController
         [Fact]
         public async Task Test_Product_IncorrectInputFormat()
         {
-            var requestBody = new UpdateProductCommand(Guid.Parse("00000000-0000-0000-0000-000000000001"), "", "", true);
+            var requestBody = new UpdateProductCommand(Guid.Parse("00000000-0000-0000-0000-000000000001"), "", "", true, "12345678930");
 
             var response = await _client.PostAsync("api/ProductManagement/updateproduct", new StringContent(JsonConvert.SerializeObject(requestBody), Encoding.UTF8, "application/json"));
 

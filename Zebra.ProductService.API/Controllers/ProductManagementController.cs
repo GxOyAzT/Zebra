@@ -6,6 +6,7 @@ using Zebra.ProductService.Application.Features.Product.Commands.RequestEntry;
 using Zebra.ProductService.Application.Features.Product.Queries;
 using Zebra.ProductService.Domain.ApiModels.Product;
 using Zebra.ProductService.Domain.Entities;
+using Zebra.ProductService.Domain.Enums;
 using Zebra.ProductService.Domain.Exceptions;
 using Zebra.Shared.LoggerDriver.Domain.Enums;
 using Zebra.Shared.LoggerDriver.Services.Interfaces;
@@ -32,6 +33,17 @@ namespace Zebra.ProductService.API.Controllers
         public async Task<IActionResult> GetProducts()
         {
             var request = new GetAllProductsQuery();
+
+            var products = await _mediator.Send(request);
+
+            return Ok(products);
+        }
+
+        [HttpGet]
+        [Route("getfilteredpagedproducts")]
+        public async Task<IActionResult> GetFilteredPagedProducts(string filterString, IsInSaleFilterEnum isInSaleFilterEnum, int pageCapacity, int page)
+        {
+            var request = new GetFilteredPagedProductsQuery(filterString, isInSaleFilterEnum, pageCapacity, page);
 
             var products = await _mediator.Send(request);
 

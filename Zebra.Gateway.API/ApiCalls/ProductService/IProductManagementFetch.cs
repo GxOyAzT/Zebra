@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Zebra.ApiCalls.ProductService;
 using Zebra.Gateway.API.ApiCalls.ProductService.Commands;
 using Zebra.Gateway.API.ApiModels.ProductService;
 
@@ -11,6 +12,9 @@ namespace Zebra.Gateway.API.ApiCalls.ProductService
     {
         [Get("/api/productmanagement/getproducts")]
         Task<List<ProductModel>> GetProducts([Header("Accept-Language")] string lang);
+
+        [Get("/api/productmanagement/getfilteredpagedproducts")]
+        Task<PagedList<ProductModel>> GetFilteredPagedProducts(string filterString, int isInSaleFilterEnum, int pageCapacity, int page);
 
         [Get("/api/productmanagement/getproduct/{productId}")]
         Task<ProductModel> GetProduct([AliasAs("productId")] Guid productId, [Header("Accept-Language")] string lang);

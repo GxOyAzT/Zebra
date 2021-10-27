@@ -13,5 +13,9 @@ namespace Zebra.Gateway.API.ApiModels.ProductService
 
         public ICollection<RatingModel> Ratings { get; set; }
         public float AverageRating { get; set; }
+
+        public string ImageSrc { get; set; }
+
+        public string ReadableAddProductDate { get; set; }
     }
 }

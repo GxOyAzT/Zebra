@@ -8,7 +8,7 @@ using Zebra.ProductService.Persistance.Repository.Product;
 
 namespace Zebra.ProductService.Application.Features.Product.Commands.RequestEntry
 {
-    public record UpdateProductCommand(Guid Id, string Name, string Description, bool IsInSale) : IRequest;
+    public record UpdateProductCommand(Guid Id, string Name, string Description, bool IsInSale, string Ean) : IRequest;
 
     public sealed class UpdateProductCommandHandler : IRequestHandler<UpdateProductCommand, Unit>
     {
@@ -28,11 +28,12 @@ namespace Zebra.ProductService.Application.Features.Product.Commands.RequestEntr
             var getProductRequest = new GetProductQuery(request.Id);
             var product = await _mediator.Send(getProductRequest);
 
-            await _mediator.Send(new ValidateProductInputCommand(request.Name, request.Description));
+            await _mediator.Send(new ValidateProductInputCommand(request.Name, request.Description, request.Ean));
 
             product.Name = request.Name;
             product.Description = request.Description;
             product.IsInSale = request.IsInSale;
+            product.Ean = request.Ean;
 
             await _productRepository.Update(product);
 

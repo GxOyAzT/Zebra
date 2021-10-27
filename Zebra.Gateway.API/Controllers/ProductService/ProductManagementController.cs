@@ -43,6 +43,22 @@ namespace Zebra.Gateway.API.Controllers.ProductService
         }
 
         [HttpGet]
+        [Route("getfilteredpagedproducts")]
+        public async Task<IActionResult> GetFilteredPagedProducts(string filterString, int isInSaleFilterEnum, int pageCapacity, int page)
+        {
+            try
+            {
+                var products = await _productManagementFetch.GetFilteredPagedProducts(filterString, isInSaleFilterEnum, pageCapacity, page);
+                return Ok(products);
+            }
+            catch (HttpRequestException ex)
+            {
+                _messageLogger.Log("Cannot fetch IProductClientFetch", Shared.LoggerDriver.Domain.Enums.LogTypeEnum.Information);
+                return StatusCode(417);
+            }
+        }
+
+        [HttpGet]
         [Route("getproduct/{productId}")]
         public async Task<IActionResult> GetProduct(Guid productId, [FromHeader(Name = "Accept-Language")] string lang)
         {
