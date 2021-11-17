@@ -41,7 +41,7 @@ namespace Zebra.ProductService.API.Controllers
 
         [HttpGet]
         [Route("getfilteredpagedproducts")]
-        public async Task<IActionResult> GetFilteredPagedProducts(string filterString, IsInSaleFilterEnum isInSaleFilterEnum, int pageCapacity, int page)
+        public async Task<IActionResult> GetFilteredPagedProducts(string filterString, bool isInSaleFilterEnum, int pageCapacity, int page)
         {
             var request = new GetFilteredPagedProductsQuery(filterString, isInSaleFilterEnum, pageCapacity, page);
 

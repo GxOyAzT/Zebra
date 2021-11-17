@@ -9,7 +9,7 @@ using Zebra.ProductService.Domain.Exceptions;
 
 namespace Zebra.ProductService.Application.Features.Product.Commands.Validation
 {
-    public sealed record ValidateProductInputCommand(string Name, string Description, string Ean) : IRequest;
+    public sealed record ValidateProductInputCommand(Guid Id, string Name, string Description, string Ean) : IRequest;
 
     public sealed class ValidateProductInputCommandHandler : IRequestHandler<ValidateProductInputCommand, Unit>
     {
@@ -29,7 +29,7 @@ namespace Zebra.ProductService.Application.Features.Product.Commands.Validation
                 throw new IncorrectInputFormatException("Product name cannot be empty value.");
             }
 
-            if (existingProducts.Select(e => e.Name.ToLower()).Contains(request.Name.ToLower()))
+            if (existingProducts.Where(e => e.Id != request.Id).Select(e => e.Name.ToLower()).Contains(request.Name.ToLower()))
             {
                 throw new IncorrectInputFormatException("product of this name already exists.");
             }

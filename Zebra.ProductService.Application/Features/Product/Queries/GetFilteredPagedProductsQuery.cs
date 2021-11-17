@@ -9,7 +9,7 @@ using Zebra.ProductService.Domain.Enums;
 
 namespace Zebra.ProductService.Application.Features.Product.Queries
 {
-    public sealed record GetFilteredPagedProductsQuery(string FilterString, IsInSaleFilterEnum IsInSaleFilter, int PageCapacity, int Page) : IRequest<PagedList<ProductModel>>;
+    public sealed record GetFilteredPagedProductsQuery(string FilterString, bool IsInSaleFilter, int PageCapacity, int Page) : IRequest<PagedList<ProductModel>>;
 
     public sealed class GetFilteredPagedProductsQueryHandler : IRequestHandler<GetFilteredPagedProductsQuery, PagedList<ProductModel>>
     {
@@ -26,14 +26,15 @@ namespace Zebra.ProductService.Application.Features.Product.Queries
 
             var products = await _mediator.Send(getAllProductsQuery);
 
+            var filterString = request.FilterString?.ToLower();
             if (!String.IsNullOrEmpty(request.FilterString))
             {
-                products = products.Where(e => e.Ean.Contains(request.FilterString) || e.Name.Contains(request.FilterString)).ToList();
+                products = products.Where(e => (String.IsNullOrEmpty(e.Name) ? false : e.Name.ToLower().Contains(filterString)) || (String.IsNullOrEmpty(e.Ean) ? false : e.Ean.Contains(filterString))).ToList();
             }
 
-            if (request.IsInSaleFilter != IsInSaleFilterEnum.Ignore)
+            if (request.IsInSaleFilter)
             {
-                products = products.Where(e => e.IsInSale == (request.IsInSaleFilter == IsInSaleFilterEnum.InSale)).ToList();
+                products = products.Where(e => e.IsInSale == request.IsInSaleFilter).ToList();
             }
 
             return new PagedList<ProductModel>(products, request.PageCapacity, request.Page);

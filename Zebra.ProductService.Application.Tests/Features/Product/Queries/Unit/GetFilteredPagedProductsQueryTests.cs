@@ -86,7 +86,7 @@ namespace Zebra.ProductService.Application.Tests.Features.Product.Queries.Unit
                 .ReturnsAsync(ProductModels);
 
             var result = await new GetFilteredPagedProductsQueryHandler(mockMediator.Object)
-                .Handle(new GetFilteredPagedProductsQuery(String.Empty, IsInSaleFilterEnum.Ignore, 20, 1),
+                .Handle(new GetFilteredPagedProductsQuery(String.Empty, false, 20, 1),
                 new CancellationToken());
 
             Assert.Equal(7, result.Models.Count);
@@ -101,7 +101,7 @@ namespace Zebra.ProductService.Application.Tests.Features.Product.Queries.Unit
                 .ReturnsAsync(ProductModels);
 
             var result = await new GetFilteredPagedProductsQueryHandler(mockMediator.Object)
-                .Handle(new GetFilteredPagedProductsQuery(String.Empty, IsInSaleFilterEnum.InSale, 20, 1),
+                .Handle(new GetFilteredPagedProductsQuery(String.Empty, true, 20, 1),
                 new CancellationToken());
 
             Assert.Equal(5, result.Models.Count);
@@ -113,13 +113,148 @@ namespace Zebra.ProductService.Application.Tests.Features.Product.Queries.Unit
             var mockMediator = new Mock<IMediator>();
 
             mockMediator.Setup(m => m.Send(It.IsAny<GetAllProductsQuery>(), It.IsAny<CancellationToken>()))
-                .ReturnsAsync(ProductModels);
+                .ReturnsAsync(new List<ProductModel>() 
+                { 
+                    new ProductModel()
+                    {
+                        Id = Guid.Parse("00000000-0000-0000-0000-000000000001"),
+                        Name = "aabbccdd",
+                        Ean = "1234",
+                        IsInSale = true
+                    },
+                    new ProductModel()
+                    {
+                        Id = Guid.Parse("00000000-0000-0000-0000-000000000002"),
+                        Name = "aabbccdd",
+                        Ean = "1234",
+                        IsInSale = true
+                    }
+                });
 
             var result = await new GetFilteredPagedProductsQueryHandler(mockMediator.Object)
-                .Handle(new GetFilteredPagedProductsQuery(String.Empty, IsInSaleFilterEnum.InSale, 20, 1),
+                .Handle(new GetFilteredPagedProductsQuery("aa", false, 20, 1),
                 new CancellationToken());
 
-            Assert.Equal(5, result.Models.Count);
+            Assert.Equal(2, result.Models.Count);
+        }
+
+        [Fact]
+        public async Task TestD()
+        {
+            var mockMediator = new Mock<IMediator>();
+
+            mockMediator.Setup(m => m.Send(It.IsAny<GetAllProductsQuery>(), It.IsAny<CancellationToken>()))
+                .ReturnsAsync(new List<ProductModel>()
+                {
+                    new ProductModel()
+                    {
+                        Id = Guid.Parse("00000000-0000-0000-0000-000000000001"),
+                        Name = "aabbccdd",
+                        Ean = "1234",
+                        IsInSale = true
+                    },
+                    new ProductModel()
+                    {
+                        Id = Guid.Parse("00000000-0000-0000-0000-000000000002"),
+                        Name = "aabbccdd",
+                        Ean = "1234",
+                        IsInSale = true
+                    }
+                });
+
+            var result = await new GetFilteredPagedProductsQueryHandler(mockMediator.Object)
+                .Handle(new GetFilteredPagedProductsQuery("xx", false, 20, 1),
+                new CancellationToken());
+
+            Assert.Empty(result.Models);
+        }
+
+        [Fact]
+        public async Task TestE()
+        {
+            var mockMediator = new Mock<IMediator>();
+
+            mockMediator.Setup(m => m.Send(It.IsAny<GetAllProductsQuery>(), It.IsAny<CancellationToken>()))
+                .ReturnsAsync(new List<ProductModel>()
+                {
+                    new ProductModel()
+                    {
+                        Id = Guid.Parse("00000000-0000-0000-0000-000000000001"),
+                        Name = "aabbccdd",
+                        Ean = "1234",
+                        IsInSale = true
+                    },
+                    new ProductModel()
+                    {
+                        Id = Guid.Parse("00000000-0000-0000-0000-000000000002"),
+                        Name = "aabbccdd",
+                        Ean = "1234",
+                        IsInSale = true
+                    },
+                    new ProductModel()
+                    {
+                        Id = Guid.Parse("00000000-0000-0000-0000-000000000003"),
+                        Name = "aabbccdd",
+                        Ean = "9999",
+                        IsInSale = true
+                    },new ProductModel()
+                    {
+                        Id = Guid.Parse("00000000-0000-0000-0000-000000000004"),
+                        Name = "aabbccdd123",
+                        Ean = "1234",
+                        IsInSale = true
+                    }
+                });
+
+            var result = await new GetFilteredPagedProductsQueryHandler(mockMediator.Object)
+                .Handle(new GetFilteredPagedProductsQuery("12", false, 20, 1),
+                new CancellationToken());
+
+            Assert.Equal(3, result.Models.Count);
+        }
+
+        [Fact]
+        public async Task TestF()
+        {
+            var mockMediator = new Mock<IMediator>();
+
+            mockMediator.Setup(m => m.Send(It.IsAny<GetAllProductsQuery>(), It.IsAny<CancellationToken>()))
+                .ReturnsAsync(new List<ProductModel>()
+                {
+                    new ProductModel()
+                    {
+                        Id = Guid.Parse("00000000-0000-0000-0000-000000000001"),
+                        Name = "aabbccdd",
+                        Ean = String.Empty,
+                        IsInSale = true
+                    },
+                    new ProductModel()
+                    {
+                        Id = Guid.Parse("00000000-0000-0000-0000-000000000002"),
+                        Name = "aabbccdd",
+                        Ean = "1234",
+                        IsInSale = true
+                    },
+                    new ProductModel()
+                    {
+                        Id = Guid.Parse("00000000-0000-0000-0000-000000000003"),
+                        Name = "aabbccdd",
+                        Ean = "9999",
+                        IsInSale = true
+                    },new ProductModel()
+                    {
+                        Id = Guid.Parse("00000000-0000-0000-0000-000000000004"),
+                        Name = "aabbccdd123",
+                        Ean = "1234",
+                        IsInSale = true
+                    }
+                });
+
+            var result = await new GetFilteredPagedProductsQueryHandler(mockMediator.Object)
+                .Handle(new GetFilteredPagedProductsQuery("12", false, 20, 1),
+                new CancellationToken());
+
+            Assert.Equal(2, result.Models.Count);
         }
     }
 }

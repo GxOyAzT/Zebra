@@ -28,7 +28,7 @@ namespace Zebra.ProductService.Application.Features.Product.Commands.RequestEntr
             var getProductRequest = new GetProductQuery(request.Id);
             var product = await _mediator.Send(getProductRequest);
 
-            await _mediator.Send(new ValidateProductInputCommand(request.Name, request.Description, request.Ean));
+            await _mediator.Send(new ValidateProductInputCommand(request.Id, request.Name, request.Description, request.Ean));
 
             product.Name = request.Name;
             product.Description = request.Description;

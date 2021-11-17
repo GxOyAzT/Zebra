@@ -29,7 +29,7 @@ namespace Zebra.ProductService.Application.Features.Product.Commands.RequestEntr
 
         public async Task<Guid> Handle(AddProductCommand request, CancellationToken cancellationToken)
         {
-            await _mediator.Send(new ValidateProductInputCommand(request.Name, request.Description, request.Ean));
+            await _mediator.Send(new ValidateProductInputCommand(Guid.Empty, request.Name, request.Description, request.Ean));
 
             var product = new ProductModel()
             {
@@ -42,7 +42,8 @@ namespace Zebra.ProductService.Application.Features.Product.Commands.RequestEntr
 
             var resut = await _productRepository.Insert(product);
 
-            await _mediator.Send(new SaveFileCommand(request.ImageSrc, _relativeFilePathResolver.ProductImages, $"product{resut}"));
+            if (!String.IsNullOrEmpty(request.ImageSrc))
+                await _mediator.Send(new SaveFileCommand(request.ImageSrc, _relativeFilePathResolver.ProductImages, $"product{resut}"));
 
             return resut;
         }

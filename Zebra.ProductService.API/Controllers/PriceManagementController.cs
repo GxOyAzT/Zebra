@@ -78,6 +78,16 @@ namespace Zebra.ProductService.API.Controllers
                 _messageLogger.Log($"{ex.Message} (PriceManagementController.UpdateProductPrice)", LogTypeEnum.Information);
                 return BadRequest(ex.Message);
             }
+            catch (IncorrectInputFormatException ex)
+            {
+                _messageLogger.Log($"{ex.Message} (PriceManagementController.UpdateProductPrice)", LogTypeEnum.Warning);
+                return BadRequest(ex.Message);
+            }
+            catch (DomainRulesException ex)
+            {
+                _messageLogger.Log($"{ex.Message} (PriceManagementController.UpdateProductPrice)", LogTypeEnum.Warning);
+                return BadRequest(ex.Message);
+            }
 
             return Ok();
         }

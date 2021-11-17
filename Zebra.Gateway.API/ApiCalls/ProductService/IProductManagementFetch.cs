@@ -14,7 +14,7 @@ namespace Zebra.Gateway.API.ApiCalls.ProductService
         Task<List<ProductModel>> GetProducts([Header("Accept-Language")] string lang);
 
         [Get("/api/productmanagement/getfilteredpagedproducts")]
-        Task<PagedList<ProductModel>> GetFilteredPagedProducts(string filterString, int isInSaleFilterEnum, int pageCapacity, int page);
+        Task<PagedList<ProductModel>> GetFilteredPagedProducts(string filterString, bool isInSaleFilterEnum, int pageCapacity, int page);
 
         [Get("/api/productmanagement/getproduct/{productId}")]
         Task<ProductModel> GetProduct([AliasAs("productId")] Guid productId, [Header("Accept-Language")] string lang);
