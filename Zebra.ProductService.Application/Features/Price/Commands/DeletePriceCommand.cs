@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -27,12 +28,12 @@ namespace Zebra.ProductService.Application.Features.Price.Commands
 
             if (priceForDelete == null)
             {
-                throw new CannotFindEntityException($"Cannot find price of ID: {request.Id}");
+                throw new CannotFindEntityException($"Cannot find price of ID: {request.Id}", HttpStatusCode.NotFound);
             }
 
             if (priceForDelete.From < DateTime.Now.Date.AddDays(1))
             {
-                throw new DomainRulesException($"You cannot price which premiere date is lower then next day. Actual premiere date for price you want to delete: {priceForDelete.From}");
+                throw new DomainRulesException($"You cannot price which premiere date is lower then next day. Actual premiere date for price you want to delete: {priceForDelete.From}", HttpStatusCode.BadRequest);
             }
 
             await _priceRepository.Delete(priceForDelete);

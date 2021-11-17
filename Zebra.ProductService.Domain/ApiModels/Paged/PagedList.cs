@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using Zebra.ProductService.Domain.Exceptions;
 
 namespace Zebra.ProductService.Domain.ApiModels.Paged
@@ -15,7 +16,7 @@ namespace Zebra.ProductService.Domain.ApiModels.Paged
 
             if (TotalModels != 0)
                 if (TotalPages < Page)
-                    throw new PageOutOfRangeException();
+                    throw new PageOutOfRangeException("Cannot create paged list of passed parameters", HttpStatusCode.BadRequest);
         }
 
         List<TModel> _models { get; }

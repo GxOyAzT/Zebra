@@ -35,21 +35,7 @@ namespace Zebra.ProductService.API.Controllers
                 return BadRequest("Request object cannot be empty.");
             }
 
-            PriceModel priceModel;
-            try
-            {
-                priceModel = await _mediator.Send(request);
-            }
-            catch (CannotFindEntityException ex)
-            {
-                _messageLogger.Log($"{ex.Message} (PriceManagementController.GetActualProductPrice)", LogTypeEnum.Information);
-                return BadRequest(ex.Message);
-            }
-            catch (CollectionIsEmptyException ex)
-            {
-                _messageLogger.Log($"{ex.Message} (PriceManagementController.GetActualProductPrice)", LogTypeEnum.Information);
-                return BadRequest(ex.Message);
-            }
+            var priceModel = await _mediator.Send(request);
 
             return Ok(priceModel);
         }
@@ -64,30 +50,7 @@ namespace Zebra.ProductService.API.Controllers
                 return BadRequest("Request object cannot be empty.");
             }
 
-            try
-            {
-                await _mediator.Send(request);
-            }
-            catch (CannotFindEntityException ex)
-            {
-                _messageLogger.Log($"{ex.Message} (PriceManagementController.UpdateProductPrice)", LogTypeEnum.Information);
-                return BadRequest(ex.Message);
-            }
-            catch (CollectionIsEmptyException ex)
-            {
-                _messageLogger.Log($"{ex.Message} (PriceManagementController.UpdateProductPrice)", LogTypeEnum.Information);
-                return BadRequest(ex.Message);
-            }
-            catch (IncorrectInputFormatException ex)
-            {
-                _messageLogger.Log($"{ex.Message} (PriceManagementController.UpdateProductPrice)", LogTypeEnum.Warning);
-                return BadRequest(ex.Message);
-            }
-            catch (DomainRulesException ex)
-            {
-                _messageLogger.Log($"{ex.Message} (PriceManagementController.UpdateProductPrice)", LogTypeEnum.Warning);
-                return BadRequest(ex.Message);
-            }
+            await _mediator.Send(request);
 
             return Ok();
         }
@@ -102,25 +65,7 @@ namespace Zebra.ProductService.API.Controllers
                 return BadRequest("Request object cannot be empty.");
             }
 
-            try
-            {
-                await _mediator.Send(request);
-            }
-            catch (CannotFindEntityException ex)
-            {
-                _messageLogger.Log($"{ex.Message} (PriceManagementController.DeletePrice)", LogTypeEnum.Information);
-                return BadRequest(ex.Message);
-            }
-            catch (CollectionIsEmptyException ex)
-            {
-                _messageLogger.Log($"{ex.Message} (PriceManagementController.DeletePrice)", LogTypeEnum.Information);
-                return BadRequest(ex.Message);
-            }
-            catch (DomainRulesException ex)
-            {
-                _messageLogger.Log($"{ex.Message} (PriceManagementController.DeletePrice)", LogTypeEnum.Information);
-                return BadRequest(ex.Message);
-            }
+            await _mediator.Send(request);
 
             return Ok();
         }

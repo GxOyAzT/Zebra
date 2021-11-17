@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using System;
+using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 using Zebra.ProductService.Application.Features.Product.Queries;
@@ -31,12 +32,12 @@ namespace Zebra.ProductService.Application.Features.Rating.Commands
 
             if (request.Score > 5 || request.Score < 1)
             {
-                throw new IncorrectInputFormatException($"Score cannot be lower then 1 and higher then 5. Actual value: {request.Score}");
+                throw new IncorrectInputFormatException($"Score cannot be lower then 1 and higher then 5. Actual value: {request.Score}", HttpStatusCode.BadRequest);
             }
 
             if (request.Review.Length > 200)
             {
-                throw new IncorrectInputFormatException($"Review cannot be longer then 200 characters. Actual: {request.Review.Length} characters.");
+                throw new IncorrectInputFormatException($"Review cannot be longer then 200 characters. Actual: {request.Review.Length} characters.", HttpStatusCode.BadRequest);
             }
 
             var ratingModel = new RatingModel()

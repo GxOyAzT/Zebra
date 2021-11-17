@@ -1,11 +1,11 @@
-﻿using System;
+﻿using System.Net;
 
 namespace Zebra.ProductService.Domain.Exceptions
 {
-    public class CollectionIsEmptyException : Exception
+    public class CollectionIsEmptyException : ApiBaseException
     {
-        public CollectionIsEmptyException(string message)
-            :base(message)
+        public CollectionIsEmptyException(string message, HttpStatusCode statusCode)
+            :base(message, statusCode)
         {
         }
 

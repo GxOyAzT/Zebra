@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using System;
 using System.Linq;
+using System.Net;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
@@ -26,27 +27,27 @@ namespace Zebra.ProductService.Application.Features.Product.Commands.Validation
 
             if (String.IsNullOrEmpty(request.Name))
             {
-                throw new IncorrectInputFormatException("Product name cannot be empty value.");
+                throw new IncorrectInputFormatException("Product name cannot be empty value.", HttpStatusCode.BadRequest);
             }
 
             if (existingProducts.Where(e => e.Id != request.Id).Select(e => e.Name.ToLower()).Contains(request.Name.ToLower()))
             {
-                throw new IncorrectInputFormatException("product of this name already exists.");
+                throw new IncorrectInputFormatException("product of this name already exists.", HttpStatusCode.BadRequest);
             }
 
             if (request.Description.Length > 100)
             {
-                throw new IncorrectInputFormatException("Description cannot be longer then 100 characters.");
+                throw new IncorrectInputFormatException("Description cannot be longer then 100 characters.", HttpStatusCode.BadRequest);
             }
 
             if (String.IsNullOrEmpty(request.Ean))
             {
-                throw new IncorrectInputFormatException("Ean has to be passed.");
+                throw new IncorrectInputFormatException("Ean has to be passed.", HttpStatusCode.BadRequest);
             }
 
             if (!new Regex("^[0-9]{11}$").IsMatch(request.Ean))
             {
-                throw new IncorrectInputFormatException("Ean has to be 11 length digitals string.");
+                throw new IncorrectInputFormatException("Ean has to be 11 length digitals string.", HttpStatusCode.BadRequest);
             }
 
             return Unit.Value;

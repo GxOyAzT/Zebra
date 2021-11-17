@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using System;
 using System.Linq;
+using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 using Zebra.ProductService.Application.Features.Price.Queries;
@@ -33,17 +34,17 @@ namespace Zebra.ProductService.Application.Features.Price.Commands
 
             if (request.Tax < 1 && request.Tax > 99)
             {
-                throw new IncorrectInputFormatException($"Tax has to be intiger from 1 to 100. Actual: {request.Tax}");
+                throw new IncorrectInputFormatException($"Tax has to be intiger from 1 to 100. Actual: {request.Tax}", HttpStatusCode.BadRequest);
             }
 
             if (request.Cost <= 0)
             {
-                throw new IncorrectInputFormatException($"Price cannot be lower then 0. Actual: {request.Cost}");
+                throw new IncorrectInputFormatException($"Price cannot be lower then 0. Actual: {request.Cost}", HttpStatusCode.BadRequest);
             }
 
             if (request.From < DateTime.Now.Date.AddDays(1))
             {
-                throw new IncorrectInputFormatException($"Price premiere date cannot be earlier then next day. Actual: {request.From}");
+                throw new IncorrectInputFormatException($"Price premiere date cannot be earlier then next day. Actual: {request.From}", HttpStatusCode.BadRequest);
             }
 
             var getAllProductPricesQuery = new GetAllProductPricesQuery(request.ProductId);
@@ -54,7 +55,7 @@ namespace Zebra.ProductService.Application.Features.Price.Commands
 
             if (priceWhereDate != null)
             {
-                throw new DomainRulesException($"Premiere price of date {request.From.Date.ToString("dd-MM-yyyy")} already exists.");
+                throw new DomainRulesException($"Premiere price of date {request.From.Date.ToString("dd-MM-yyyy")} already exists.", HttpStatusCode.BadRequest);
             }
 
             var price = new PriceModel()

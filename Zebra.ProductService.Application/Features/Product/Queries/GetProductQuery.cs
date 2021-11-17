@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using System;
 using System.Linq;
+using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 using Zebra.ProductService.Domain.Entities;
@@ -27,7 +28,7 @@ namespace Zebra.ProductService.Application.Features.Product.Queries
 
             if (searchProduct == null)
             {
-                throw new CannotFindEntityException($"Cannot find Product of id {request.Id}");
+                throw new CannotFindEntityException($"Cannot find Product of id {request.Id}", HttpStatusCode.NotFound);
             }
 
             return searchProduct;

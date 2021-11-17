@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using System;
 using System.Linq;
+using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 using Zebra.ProductService.Application.Features.Product.Queries;
@@ -30,7 +31,7 @@ namespace Zebra.ProductService.Application.Features.Price.Queries
 
             if (!allProductPrices.Any())
             {
-                throw new CollectionIsEmptyException($"There is no price related to product of ID: {request.ProductId}");
+                throw new CollectionIsEmptyException($"There is no price related to product of ID: {request.ProductId}", HttpStatusCode.BadRequest);
             }
 
             var actualPrice = allProductPrices.Where(e => e.From < DateTime.Now)
@@ -39,7 +40,7 @@ namespace Zebra.ProductService.Application.Features.Price.Queries
 
             if (actualPrice == null)
             {
-                throw new CannotFindEntityException("Cannot find actual price.");
+                throw new CannotFindEntityException("Cannot find actual price.", HttpStatusCode.NotFound);
             }
 
             return actualPrice;

@@ -7,6 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using System.Diagnostics;
+using Zebra.ProductService.API.Middlewares;
 using Zebra.ProductService.Application;
 using Zebra.ProductService.Application.Features.Files;
 using Zebra.ProductService.Persistance.Context;
@@ -72,6 +73,8 @@ namespace Zebra.ProductService.API
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Zebra.ProductService.API"));
             }
+
+            app.UseCatchExceptionMiddleware();
 
             app.UseHttpsRedirection();
 

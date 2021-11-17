@@ -56,16 +56,7 @@ namespace Zebra.ProductService.API.Controllers
         {
             var getProductQuery = new GetProductQuery(productId);
 
-            ProductModel productModel;
-            try
-            {
-                productModel = await _mediator.Send(getProductQuery);
-            }
-            catch (CannotFindEntityException ex)
-            {
-                _messageLogger.Log($"{ex.Message} (ProductManagementController.GetProduct)", LogTypeEnum.Information);
-                return NotFound(ex.Message);
-            }
+            var productModel = await _mediator.Send(getProductQuery);
 
             return Ok(productModel);
         }
@@ -76,16 +67,7 @@ namespace Zebra.ProductService.API.Controllers
         {
             var getEntireProductQuery = new GetEntireProductQuery(productId);
 
-            ProductEntireApiModel productModel;
-            try
-            {
-                productModel = await _mediator.Send(getEntireProductQuery);
-            }
-            catch (CannotFindEntityException ex)
-            {
-                _messageLogger.Log($"{ex.Message} (ProductManagementController.GetEntireProduct)", LogTypeEnum.Information);
-                return NotFound(ex.Message);
-            }
+            var productModel = await _mediator.Send(getEntireProductQuery);
 
             return Ok(productModel);
         }
@@ -100,20 +82,7 @@ namespace Zebra.ProductService.API.Controllers
                 return BadRequest("Request object cannot be empty.");
             }
 
-            try
-            {
-                await _mediator.Send(request);
-            }
-            catch (CannotFindEntityException ex)
-            {
-                _messageLogger.Log($"{ex.Message} (ProductManagementController.UpdateProduct)", LogTypeEnum.Information);
-                return BadRequest(ex.Message);
-            }
-            catch (IncorrectInputFormatException ex)
-            {
-                _messageLogger.Log($"{ex.Message} (ProductManagementController.UpdateProduct)", LogTypeEnum.Information);
-                return BadRequest(ex.Message);
-            }
+            await _mediator.Send(request);
 
             return Ok();
         }
@@ -128,15 +97,7 @@ namespace Zebra.ProductService.API.Controllers
                 return BadRequest("Request object cannot be empty.");
             }
 
-            try
-            {
-                await _mediator.Send(request);
-            }
-            catch (IncorrectInputFormatException ex)
-            {
-                _messageLogger.Log($"{ex.Message} (ProductManagementController.AddProduct)", LogTypeEnum.Information);
-                return BadRequest(ex.Message);
-            }
+            await _mediator.Send(request);
 
             return Ok();
         }

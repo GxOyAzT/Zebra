@@ -33,15 +33,7 @@ namespace Zebra.ProductService.API.Controllers
                 return BadRequest("Request object cannot be empty.");
             }
 
-            try
-            {
-                await _mediator.Send(command);
-            }
-            catch (IncorrectInputFormatException ex)
-            {
-                _messageLogger.Log($"{ex.Message} (RatingController.AddRating)", LogTypeEnum.Information);
-                return BadRequest($"{ex.Message}");
-            }
+            await _mediator.Send(command);
 
             return Ok();
         } 
