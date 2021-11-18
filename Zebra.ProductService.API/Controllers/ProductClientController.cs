@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
-using Zebra.ProductService.Application.Features.Product.Queries;
+using Zebra.ProductService.Application.Features.ProductPrice.Query;
 
 namespace Zebra.ProductService.API.Controllers
 {
@@ -17,10 +17,10 @@ namespace Zebra.ProductService.API.Controllers
         }
 
         [HttpGet]
-        [Route("getallavaliableproducts")]
-        public async Task<IActionResult> GetAllAvaliableProducts()
+        [Route("getallavaliableproducts/{pageCapacity}/{page}")]
+        public async Task<IActionResult> GetAllAvaliableProducts(int pageCapacity, int page)
         {
-            var request = new GetAvaliableProductsQuery();
+            var request = new GetProductsPriceQuery(pageCapacity, page);
 
             var products = await _mediator.Send(request);
 
