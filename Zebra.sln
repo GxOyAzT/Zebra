@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.31005.135
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.31911.260
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ProductService", "ProductService", "{5A53E358-184F-4E50-8856-CB43B99CC914}"
 EndProject
@@ -43,6 +43,16 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Zebra.Shared.FileDriver", "Zebra.Shared.FileDriver\Zebra.Shared.FileDriver.csproj", "{9B1051CC-0CF9-43B0-B29F-6F034E6AAB71}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Zebra.Shared.FileDriver.Tests", "Zebra.Shared.FileDriver.Tests\Zebra.Shared.FileDriver.Tests.csproj", "{3AF18ACA-783E-45BD-BBC7-9D2AE9F3B5EB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Order", "Order", "{EA2F226C-A513-477F-98D1-3A6DD2796608}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zebra.OrderService.API", "Zebra.OrderService.API\Zebra.OrderService.API.csproj", "{9AD56F52-50F7-4DC5-9294-4311F6EBE0C4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zebra.OrderService.Infrastructure", "Zebra.OrderService.Infrastructure\Zebra.OrderService.Infrastructure.csproj", "{EE8D1CF0-2097-4F07-8868-1175E1CFB950}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zebra.OrderService.Application", "Zebra.OrderService.Application\Zebra.OrderService.Application.csproj", "{ED37800A-2E16-4888-B724-037D90599D43}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zebra.OrderService.Domain", "Zebra.OrderService.Domain\Zebra.OrderService.Domain.csproj", "{07CCCCB5-5BC2-4C94-B788-E1F2867C44B8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -102,6 +112,22 @@ Global
 		{3AF18ACA-783E-45BD-BBC7-9D2AE9F3B5EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3AF18ACA-783E-45BD-BBC7-9D2AE9F3B5EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3AF18ACA-783E-45BD-BBC7-9D2AE9F3B5EB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9AD56F52-50F7-4DC5-9294-4311F6EBE0C4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9AD56F52-50F7-4DC5-9294-4311F6EBE0C4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9AD56F52-50F7-4DC5-9294-4311F6EBE0C4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9AD56F52-50F7-4DC5-9294-4311F6EBE0C4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EE8D1CF0-2097-4F07-8868-1175E1CFB950}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EE8D1CF0-2097-4F07-8868-1175E1CFB950}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EE8D1CF0-2097-4F07-8868-1175E1CFB950}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EE8D1CF0-2097-4F07-8868-1175E1CFB950}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ED37800A-2E16-4888-B724-037D90599D43}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ED37800A-2E16-4888-B724-037D90599D43}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ED37800A-2E16-4888-B724-037D90599D43}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ED37800A-2E16-4888-B724-037D90599D43}.Release|Any CPU.Build.0 = Release|Any CPU
+		{07CCCCB5-5BC2-4C94-B788-E1F2867C44B8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{07CCCCB5-5BC2-4C94-B788-E1F2867C44B8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{07CCCCB5-5BC2-4C94-B788-E1F2867C44B8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{07CCCCB5-5BC2-4C94-B788-E1F2867C44B8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -120,6 +146,10 @@ Global
 		{833EE421-5675-4FA4-BD83-BAF35FDDF23C} = {5A53E358-184F-4E50-8856-CB43B99CC914}
 		{9B1051CC-0CF9-43B0-B29F-6F034E6AAB71} = {DA502E53-1543-4A6E-AB56-4FD7BD456B32}
 		{3AF18ACA-783E-45BD-BBC7-9D2AE9F3B5EB} = {DA502E53-1543-4A6E-AB56-4FD7BD456B32}
+		{9AD56F52-50F7-4DC5-9294-4311F6EBE0C4} = {EA2F226C-A513-477F-98D1-3A6DD2796608}
+		{EE8D1CF0-2097-4F07-8868-1175E1CFB950} = {EA2F226C-A513-477F-98D1-3A6DD2796608}
+		{ED37800A-2E16-4888-B724-037D90599D43} = {EA2F226C-A513-477F-98D1-3A6DD2796608}
+		{07CCCCB5-5BC2-4C94-B788-E1F2867C44B8} = {EA2F226C-A513-477F-98D1-3A6DD2796608}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {68C19DED-5A65-4AC2-80C1-CC12385FDD6D}
