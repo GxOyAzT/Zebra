@@ -1,8 +1,10 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Threading.Tasks;
 using Zebra.ProductService.Application.Features.Product.Commands.RequestEntry;
 using Zebra.ProductService.Application.Features.Product.Queries;
+using Zebra.ProductService.Domain.ApiModels.Product;
 using Zebra.ProductService.Domain.Entities;
 using Zebra.ProductService.Domain.Exceptions;
 using Zebra.Shared.LoggerDriver.Domain.Enums;
@@ -37,19 +39,15 @@ namespace Zebra.ProductService.API.Controllers
         }
 
         [HttpGet]
-        [Route("getproduct")]
-        public async Task<IActionResult> GetProduct([FromBody] GetProductQuery request)
+        [Route("getproduct/{productId}")]
+        public async Task<IActionResult> GetProduct(Guid productId)
         {
-            if (request == null)
-            {
-                _messageLogger.Log("GetProductQuery is null (ProductManagementController.GetProduct)", LogTypeEnum.Information);
-                return BadRequest("Request object cannot be empty.");
-            }
+            var getProductQuery = new GetProductQuery(productId);
 
             ProductModel productModel;
             try
             {
-                productModel = await _mediator.Send(request);
+                productModel = await _mediator.Send(getProductQuery);
             }
             catch (CannotFindEntityException ex)
             {
@@ -60,7 +58,27 @@ namespace Zebra.ProductService.API.Controllers
             return Ok(productModel);
         }
 
-        [HttpPost]
+        [HttpGet]
+        [Route("getentireproduct/{productId}")]
+        public async Task<IActionResult> GetEntireProduct(Guid productId)
+        {
+            var getEntireProductQuery = new GetEntireProductQuery(productId);
+
+            ProductEntireApiModel productModel;
+            try
+            {
+                productModel = await _mediator.Send(getEntireProductQuery);
+            }
+            catch (CannotFindEntityException ex)
+            {
+                _messageLogger.Log($"{ex.Message} (ProductManagementController.GetEntireProduct)", LogTypeEnum.Information);
+                return NotFound(ex.Message);
+            }
+
+            return Ok(productModel);
+        }
+
+        [HttpPut]
         [Route("updateproduct")]
         public async Task<IActionResult> UpdateProduct([FromBody] UpdateProductCommand request)
         {
@@ -82,6 +100,29 @@ namespace Zebra.ProductService.API.Controllers
             catch (IncorrectInputFormatException ex)
             {
                 _messageLogger.Log($"{ex.Message} (ProductManagementController.UpdateProduct)", LogTypeEnum.Information);
+                return BadRequest(ex.Message);
+            }
+
+            return Ok();
+        }
+
+        [HttpPost]
+        [Route("addproduct")]
+        public async Task<IActionResult> AddProduct([FromBody] AddProductCommand request)
+        {
+            if (request == null)
+            {
+                _messageLogger.Log("AddProductCommand is null (ProductManagementController.AddProduct)", LogTypeEnum.Information);
+                return BadRequest("Request object cannot be empty.");
+            }
+
+            try
+            {
+                await _mediator.Send(request);
+            }
+            catch (IncorrectInputFormatException ex)
+            {
+                _messageLogger.Log($"{ex.Message} (ProductManagementController.AddProduct)", LogTypeEnum.Information);
                 return BadRequest(ex.Message);
             }
 

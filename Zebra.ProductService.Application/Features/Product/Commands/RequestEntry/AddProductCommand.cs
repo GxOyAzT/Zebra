@@ -2,28 +2,32 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
+using Zebra.ProductService.Application.Features.Files;
 using Zebra.ProductService.Application.Features.Product.Commands.Validation;
 using Zebra.ProductService.Domain.Entities;
 using Zebra.ProductService.Persistance.Repository.Product;
 
 namespace Zebra.ProductService.Application.Features.Product.Commands.RequestEntry
 {
-    public sealed record AddProductCommand(string Name, string Description) : IRequest;
+    public sealed record AddProductCommand(string Name, string Description, string ImageSrc) : IRequest<Guid>;
 
-    public sealed class AddProductCommandHandler : IRequestHandler<AddProductCommand, Unit>
+    public sealed class AddProductCommandHandler : IRequestHandler<AddProductCommand, Guid>
     {
         private readonly IMediator _mediator;
         private readonly IProductRepository _productRepository;
+        private readonly IRelativeFilePathResolver _relativeFilePathResolver;
 
         public AddProductCommandHandler(
             IMediator mediator,
-            IProductRepository productRepository)
+            IProductRepository productRepository,
+            IRelativeFilePathResolver relativeFilePathResolver)
         {
             _mediator = mediator;
             _productRepository = productRepository;
+            _relativeFilePathResolver = relativeFilePathResolver;
         }
 
-        public async Task<Unit> Handle(AddProductCommand request, CancellationToken cancellationToken)
+        public async Task<Guid> Handle(AddProductCommand request, CancellationToken cancellationToken)
         {
             await _mediator.Send(new ValidateProductInputCommand(request.Name, request.Description));
 
@@ -35,9 +39,11 @@ namespace Zebra.ProductService.Application.Features.Product.Commands.RequestEntr
                 AddDate = DateTime.Now
             };
 
-            await _productRepository.Insert(product);
+            var resut = await _productRepository.Insert(product);
 
-            return Unit.Value;
+            await _mediator.Send(new SaveFileCommand(request.ImageSrc, _relativeFilePathResolver.ProductImages, $"product{resut}"));
+
+            return resut;
         }
     }
 }

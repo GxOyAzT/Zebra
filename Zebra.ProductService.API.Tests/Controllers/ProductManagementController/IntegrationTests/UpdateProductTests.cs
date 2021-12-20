@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 using System.Text;
 using Newtonsoft.Json;
 using System.Net;
+using Zebra.Shared.LoggerDriver.DIConfiguration;
 
 namespace Zebra.ProductService.API.Tests.Controllers.ProductManagementController.IntegrationTests
 {
@@ -30,6 +31,8 @@ namespace Zebra.ProductService.API.Tests.Controllers.ProductManagementController
                     services.AddMediatR(typeof(MediaREntryPoint));
 
                     services.AddScoped<IProductRepository, ProductRepositoryMock1>();
+
+                    services.ConfigureLoggerDriver("ProductService", false);
                 });
             }).CreateClient(new WebApplicationFactoryClientOptions());
         }
@@ -38,13 +41,6 @@ namespace Zebra.ProductService.API.Tests.Controllers.ProductManagementController
         public async Task Test_Ok()
         {
             var requestBody = new UpdateProductCommand(Guid.Parse("00000000-0000-0000-0000-000000000002"), "Product 2 after update", "", true);
-
-            var request = new HttpRequestMessage
-            {
-                Method = HttpMethod.Get,
-                RequestUri = new Uri(_client.BaseAddress, "api/ProductManagement/getproduct"),
-                Content = new StringContent(JsonConvert.SerializeObject(requestBody), Encoding.UTF8, "application/json")
-            };
 
             var response = await _client.PostAsync("api/ProductManagement/updateproduct", new StringContent(JsonConvert.SerializeObject(requestBody), Encoding.UTF8, "application/json"));
 
@@ -56,13 +52,6 @@ namespace Zebra.ProductService.API.Tests.Controllers.ProductManagementController
         {
             var requestBody = new UpdateProductCommand(Guid.Parse("00000000-0000-0000-0000-000000000000"), "Incorrect guid", "", true);
 
-            var request = new HttpRequestMessage
-            {
-                Method = HttpMethod.Get,
-                RequestUri = new Uri(_client.BaseAddress, "api/ProductManagement/getproduct"),
-                Content = new StringContent(JsonConvert.SerializeObject(requestBody), Encoding.UTF8, "application/json")
-            };
-
             var response = await _client.PostAsync("api/ProductManagement/updateproduct", new StringContent(JsonConvert.SerializeObject(requestBody), Encoding.UTF8, "application/json"));
 
             Assert.Equal(HttpStatusCode.BadRequest, response.StatusCode);
@@ -72,13 +61,6 @@ namespace Zebra.ProductService.API.Tests.Controllers.ProductManagementController
         public async Task Test_Product_IncorrectInputFormat()
         {
             var requestBody = new UpdateProductCommand(Guid.Parse("00000000-0000-0000-0000-000000000001"), "", "", true);
-
-            var request = new HttpRequestMessage
-            {
-                Method = HttpMethod.Get,
-                RequestUri = new Uri(_client.BaseAddress, "api/ProductManagement/getproduct"),
-                Content = new StringContent(JsonConvert.SerializeObject(requestBody), Encoding.UTF8, "application/json")
-            };
 
             var response = await _client.PostAsync("api/ProductManagement/updateproduct", new StringContent(JsonConvert.SerializeObject(requestBody), Encoding.UTF8, "application/json"));
 

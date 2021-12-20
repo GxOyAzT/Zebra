@@ -1,17 +1,19 @@
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
+using Microsoft.OpenApi.Models;
+using System.Diagnostics;
 using Zebra.ProductService.Application;
-using Zebra.ProductService.Domain.Entities;
+using Zebra.ProductService.Application.Features.Files;
+using Zebra.ProductService.Persistance.Context;
 using Zebra.ProductService.Persistance.Repository.Price;
 using Zebra.ProductService.Persistance.Repository.Product;
 using Zebra.ProductService.Persistance.Repository.Rating;
+using Zebra.Shared.FileDriver.DependencyInjection;
 using Zebra.Shared.LoggerDriver.DIConfiguration;
 
 namespace Zebra.ProductService.API
@@ -27,15 +29,39 @@ namespace Zebra.ProductService.API
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<ApplicationDbContext>(conf =>
+            {
+                conf.UseSqlServer(Configuration.GetConnectionString("Zebra_Product"));
+            });
+
+            services.AddCors(policy =>
+                policy.AddPolicy("OpenCorsPolicy", options => options.AllowAnyMethod().AllowAnyHeader().AllowAnyOrigin()));
+
             services.AddMediatR(typeof(MediaREntryPoint));
 
-            services.ConfigureLoggerDriver("ProductService");
+            if (Debugger.IsAttached)
+            {
+                services.ConfigureLoggerDriver("ProductService", false);
+            }
+            else
+            {
+                services.ConfigureLoggerDriver("ProductService");
+            }
+            
+            services.AddScoped<IProductRepository, ProductRepository>();
+            services.AddScoped<IPriceRepository, PriceRepository>();
+            services.AddScoped<IRatingRepository, RatingRepository>();
 
-            services.AddScoped<IProductRepository, MockProductRepo>();
-            services.AddScoped<IPriceRepository, MockPriceRepo>();
-            services.AddScoped<IRatingRepository, MockRatingRepo>();
+            services.AddSingleton<IRelativeFilePathResolver, RelativeFilePathResolver>();
+
+            services.AddFileManager(Configuration["FilesRootPath"]);
 
             services.AddControllers();
+
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Zebra.ProductService.API", Version = "v1" });
+            });
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -43,9 +69,13 @@ namespace Zebra.ProductService.API
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UseSwagger();
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Zebra.ProductService.API"));
             }
 
             app.UseHttpsRedirection();
+
+            app.UseCors("OpenCorsPolicy");
 
             app.UseRouting();
 
@@ -55,107 +85,6 @@ namespace Zebra.ProductService.API
             {
                 endpoints.MapControllers();
             });
-        }
-    }
-
-    public class MockProductRepo : IProductRepository
-    {
-        public Task Delete(ProductModel entity)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<ProductModel> Get(Guid id)
-        {
-            return Task.FromResult(new ProductModel()
-            {
-                Id = new Guid(),
-                IsInSale = true,
-                Name = "Name",
-                AddDate = DateTime.Now.AddDays(-200),
-                Description = "Description"
-            });
-        }
-
-        public Task<List<ProductModel>> GetAll()
-        {
-            return Task.FromResult(new List<ProductModel>()
-            {
-                new ProductModel()
-                {
-                    Id = new Guid("4be0c6d2-bd29-4fa7-8002-a5f10a7c9686"),
-                    IsInSale = true,
-                    Name = "Name",
-                    AddDate = DateTime.Now.AddDays(-200),
-                    Description = "Description"
-                }   
-            });
-        }
-
-        public Task Insert(ProductModel entity)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task Update(ProductModel entity)
-        {
-            throw new NotImplementedException();
-        }
-    }
-
-    public class MockPriceRepo : IPriceRepository
-    {
-        public Task Delete(PriceModel entity)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<PriceModel> Get(Guid id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<List<PriceModel>> GetAll()
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task Insert(PriceModel entity)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task Update(PriceModel entity)
-        {
-            throw new NotImplementedException();
-        }
-    }
-
-    public class MockRatingRepo : IRatingRepository
-    {
-        public Task Delete(RatingModel entity)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<RatingModel> Get(Guid id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<List<RatingModel>> GetAll()
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task Insert(RatingModel entity)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task Update(RatingModel entity)
-        {
-            throw new NotImplementedException();
         }
     }
 }

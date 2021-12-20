@@ -14,6 +14,7 @@ using Zebra.ProductService.Application.Features.Price.Commands;
 using Newtonsoft.Json;
 using System.Text;
 using System.Net;
+using Zebra.Shared.LoggerDriver.DIConfiguration;
 
 namespace Zebra.ProductService.API.Tests.Controllers.PriceManagementController.IntegrationTests
 {
@@ -33,6 +34,8 @@ namespace Zebra.ProductService.API.Tests.Controllers.PriceManagementController.I
 
                     services.AddScoped<IProductRepository, ProductRepositoryMock1>();
                     services.AddScoped<IPriceRepository, PriceRepositoryMock1>();
+
+                    services.ConfigureLoggerDriver("ProductService", false);
                 });
             }).CreateClient(new WebApplicationFactoryClientOptions());
         }
